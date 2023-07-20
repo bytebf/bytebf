@@ -10,13 +10,11 @@ from datetime import datetime
 global roomretst
 roomretst = False
 gameplayed= 0
-listt =[]
 serversocket =None
 remotesockett = None
 clienttsocket =None
 istarted = False
 start =None
-stop =b'\x03\x15\x00\x00\x00\x10\t\x1e\xb7N\xef9\xb7WN5\x96\x02\xb0g\x0c\xa8'
 increase =False
 socktion =None
 SOCKS_VERSION = 5
