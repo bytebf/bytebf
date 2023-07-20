@@ -26,14 +26,13 @@ full = False
 ####
 
 def getdate(playerid):
-    global data,dc
-    data = requests.get(f"http://88.198.53.59:19350/info/{playerid}").text
-    dc = data[9:19]
-    print(data)
-
+    global data, dc
+    data = requests.get(f"http://88.198.53.59:19350/info/{playerid}").json()
+    dc = data["date"]
+    print(type(dc))
     try:
-        old_date = datetime.strptime(dc, "%d/%m/%Y")
-        now = datetime.now()
+        old_date = datetime.datetime.strptime(dc, "%d/%m/%Y")
+        now = datetime.datetime.now()
         delta = now - old_date
         years = delta.days // 365
         months = (delta.days % 365) // 30
