@@ -29,7 +29,7 @@ def getdate(playerid):
     global data, dc
     data = requests.get(f"http://88.198.53.59:19350/info/{playerid}").json()
     dc = data["date"]
-    print(type(dc))
+    print(dc)
     try:
         old_date = datetime.datetime.strptime(dc, "%d/%m/%Y")
         now = datetime.datetime.now()
