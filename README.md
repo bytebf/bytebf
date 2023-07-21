@@ -1,4 +1,3 @@
-# 156.219.175.118
 import time
 import socket
 import threading
@@ -25,19 +24,24 @@ full = False
 
 def getdate(playerid):
     global data, dc
-    data = requests.get(f"http://88.198.53.59:19350/info/{playerid}").json()
-    dc = data["date"]
-    print(dc)
     try:
-        old_date = datetime.datetime.strptime(dc, "%d/%m/%Y")
-        now = datetime.datetime.now()
+        data = requests.get(f"http://88.198.53.59:19350/info/{playerid}").json()
+        dc = data["date"]
+        print(dc)
+        
+        old_date = datetime.strptime(dc, "%d/%m/%Y")
+        now = datetime.now()
         delta = now - old_date
         years = delta.days // 365
         months = (delta.days % 365) // 30
         days = (delta.days % 365) % 30
-        return f"--> {dc}\n\n{years} سـنـوات \n\n{months} شـهـور \n\n{days} يـوم "
+        return f"[b][c][ffea00]--> {dc}\n\n[18ffff]{years} سـنـوات \n\n{months} شـهـور \n\n{days} يـوم "
     except:
-        return f"--> {dc}"
+        return f"[b][c][ffea00]--> {dc}"
+
+
+
+        # return f"--> {dc}"
     
 def getreg(Id):    
      
@@ -102,7 +106,7 @@ def getname(Id):
         else:
             return("ERROR")
     except:
-        return("الإسـم مش معروف ")
+        return("الإسـم مش معروف")
 
 
 def get_status(Id):
@@ -129,16 +133,10 @@ def gen_msgv2_clan(replay  , packet):
         pyloadtext  = re.findall(r'{}(.*?)28'.format(pyloadlength) , packet[50:])[0]
         pyloadTile = packet[int(int(len(pyloadtext))+68):]
     elif "https" in str(bytes.fromhex(packet)) and "googleusercontent" not in str(bytes.fromhex(packet)):
-        print("-------------------------")
-        
         pyloadlength = packet[64:68]#
         pyloadtext  = re.findall(r'{}(.*?)28'.format(pyloadlength) , packet[50:])[0]
         pyloadTile = packet[int(int(len(pyloadtext))+68):]
         print(bytes.fromhex(pyloadlength))
-        # print(bytes.fromhex(pyloadTile))
-
-        print("-------------------------")
-
     else:
         pyloadlength = packet[64:66]#
         pyloadtext  = re.findall(r'{}(.*?)28'.format(pyloadlength) , packet[50:])[0]
@@ -154,31 +152,17 @@ def gen_msgv2_clan(replay  , packet):
 
 
 
-def gen_msgv2(replay  , packet):
-    
-    replay  = replay.encode('utf-8')
-    replay = replay.hex()
-    hedar = packet[0:8]
-    packetLength = packet[8:10] #
-    paketBody = packet[10:32]
-    pyloadbodyLength = packet[32:34]#
-    pyloadbody2= packet[34:60]
-    pyloadlength = packet[60:62]#
-    pyloadtext  = re.findall(r'{}(.*?)28'.format(pyloadlength) , packet[50:])[0]
-    pyloadTile = packet[int(int(len(pyloadtext))+62):]
-    NewTextLength = (hex((int(f'0x{pyloadlength}', 16) - int(len(pyloadtext)//2) ) + int(len(replay)//2))[2:])
-    if len(NewTextLength) ==1:
-        NewTextLength = "0"+str(NewTextLength)
-    NewpaketLength = hex(((int(f'0x{packetLength}', 16) - int((len(pyloadtext))//2) ) ) + int(len(replay)//2) )[2:]
-    NewPyloadLength = hex(((int(f'0x{pyloadbodyLength}', 16) - int(len(pyloadtext)//2))  )+ int(len(replay)//2) )[2:]
-    finallyPacket = hedar + NewpaketLength +paketBody + NewPyloadLength +pyloadbody2+NewTextLength+ replay + pyloadTile
-    return finallyPacket
 
 def inret():
     global hidd,packet1
+    print(packet1)
     try:
+        print("success send")
         hidd.send(packet1)
     except:
+        print("XXXX send")
+
+
         pass
 
 def nret():
@@ -663,18 +647,18 @@ class Proxy:
                     if '0515' in dataC.hex()[0:4] and len(dataC.hex()) >= 141:
                         hide = True
                     if '0515' in dataC.hex()[0:4] and 700 < len(dataC.hex()) < 1100:   #ENTER TO SQUAD
-                       print(dataC)
-                       print(dataC.hex())
-                       print(len(dataC.hex()))
+                    #    print(dataC)
+                    #    print(dataC.hex())
+                    #    print(len(dataC.hex()))
                        team = remote
                        teams = client
                        packett = dataC
                        print("ENTER TO SQUAD Def")
 
                     if '0515' in dataC.hex()[0:4] and 30 < len(dataC.hex()) < 50:   #EXIT FROM SQUAD
-                       print(dataC)
-                       print(dataC.hex())
-                       print(len(dataC.hex()))
+                    #    print(dataC)
+                    #    print(dataC.hex())
+                    #    print(len(dataC.hex()))
                        packett1 = dataC
                        print("EXIT FROM SQUAD Def")
 
@@ -764,12 +748,6 @@ class Proxy:
                             threading.Thread(target=xmodz,args=(levelplus,)).start()
                             increaseL = False
 
-                        if full == True:               
-                            print("Send info")                    
-                            backto.send(bytes.fromhex(gen_msgv2("[00FF00][b][c]This Bot Made By  :\n\nㅤㅤㅤBYTE TEAM",newbackdataS)))
-                            backto.send(bytes.fromhex(gen_msgv2_clan("[00FF00][b][c]إسـم الحسـاب :\n\n SHIRO HUBㅤㅤ\n\nالأيدي : \n\n 617890172ㅤㅤ",newbackdataS)))
-                            full = False
-
                         if '0e15' in dataC.hex()[:4] and returntoroom ==True:
                             remote.send(lag)
                             returntoroom =False
@@ -799,17 +777,6 @@ class Proxy:
                                 except:
                                     pass
                                 restartsock = False
-
-                        try:
-                            if '1200' in dataS.hex()[0:4] and b'/info' in dataS: #/back
-                                print("Done")
-                                backto = client
-                                newbackdataS = dataS.hex()
-                                full = True
-                                print(full)
-
-                        except:
-                            pass
 
                         if cmode == True and cmodeinfo==True:
                             cmodeloop = True
@@ -841,7 +808,7 @@ class Proxy:
 
                         if idinfo == False:
                                 print("Sending info")
-                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[00FF00][b][c]جلـب معلومـات الحسـاب",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[00FF00][b][c]... جلـب معلومـات الحسـاب",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]الأيدي : ",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{number}",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]الإسـم : ",newdataS2)))
@@ -850,8 +817,8 @@ class Proxy:
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{getreg(number)}",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]حالـة الحسـاب : ",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{get_status(number)}",newdataS2)))
-                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[76ff03][b][c] تم الإنشاء منذ : ",newdataS2)))
-                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[18ffff][b][c]{getdate(number)}",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[76ff03][b][c]     الإنشاء منذ : ",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"{getdate(number)}",newdataS2)))
 
                                 idinfo = True
 
@@ -904,7 +871,7 @@ class Proxy:
                             x = 0
                             if len(dataS.hex())<=30:
                                 hide = True
-                            if len(dataS.hex())>=25:
+                            if len(dataS.hex())>=100:
                                 packet1 = dataS
                                 hidd = client
                                 hide = False
@@ -912,7 +879,13 @@ class Proxy:
 
 
                         if b"/rec" in dataS and '1200' in dataS.hex()[0:4]:
-                            remote.send(b'\x05\x03\x00\x00\x01\xd0\x1f\xb5x13P\x90[\xab\xce\xf5\x1d\xd2N\xd7_\xd0\xa2K\x02K\xd1B\x96F\x11K\xc2\xfd5\xa9o\xbcHq\x0b-\x9c\xfe\xc47\x82\x87\xec\x82\x9e3\xa7\x86\x08\xfd-\xd18\xd4\xd2J\x19\xc0\x0f\xbf\xdc\x9f\x15\xc7\x7f\xf8mc\x8b4\xde\x95\xbd\x88n0u\xe8-?J8\x88\xf9\xb6\x944c\x02,C\xfb\x90\xe2)\xf0\xea\xf8\xa7\x88\xf6\xf7f\xd8\x91\xd9\x9e\xb2\xc3{\'qD\x922\x12\x81\x0b<\x80\xd1\xc5!y\x01T\xed\'\x0fRA\xad\xc16\xf2\xa2(\x16\xe0\xbc\x84\xfc\xafy8k\'U\x9d\xe9f\xaax\x8c\x18M5\xbb\xbf\xaa\x03\xa5\xf0\x87F\xf8\xdb\x0es\xb2\xc9\x1e\xc4Q]a\xf6\x89\xa0\xca\xd3\n|\xbdl2QQ\xe8y\xda\xbcC\xd5\x06\xb3$\n\xbeA\xbc\rkD\x16\xc1\x8fh\xefJ\xf2\xd0L8\x1b\xe6\xbfXok%r|\x0c\x85\xc0:W\x917\xe4\xa6\xc6\x02\xefm\x83=\xab\xda\xb3\xeb\xa3\xa5&nZG1\xfb\xfb\x17 \xb6\x0f\x12L\xd8\xfdO\xa2l\xc7\xa9\xfbn\n!\x8d\x88\t\xf5{ M"\xfa\x97R\n\xeb\x99\x00|{q\xc7\t\xe5>\xcch\x8c\x99c\xe0xi\t\x15/\xa9?\x06\xdc\x93\x08Th\xda\xe3N\x16\t\xf3?}\xee"\x8f\xb0X\xc6\xef\xd6\x84kP\xacT\xdb\n\xeb\xb8\xf5\xbc/gQ\xf9\xe2\x88m\xba\xb4\x1c\xba\xf5\xa1\xd8\xcd\x88\xe6\xc1:**V\xb6\x13\xa2\xd3!y\xdc?x\x14\x93\xa5\x02s"\xac\x0c\xb1\xa2\xd3\xc7\x9dI\xfb\x12\xed&#\x0e\x15a\xdfC\xd3\x15\xa2{\xe1{]\xeb\xdb\xa7W\x803\x05%+TC\xf3\xd7|\xd3\x19\xdd\xe9\xc4\x9ar\xc66\xd9=\x02\xbd\xd9Yqh\xf3x\xaanA\xd0\xfdTZ\xbf\x8b\xc0\x88?=\xac\x11\xea\'\x16f\x83\xc7\x11\x1a\x0f2\x9b\xf6\xb6\xa5')
+                            try:
+                                remotesockett.close()
+                                clientsockett.close()
+                            except:
+                                pass
+                            finally:
+                                remote.send(b'\x05\x03\x00\x00')
 
                         if "0515" in dataC.hex()[0:4] and 1400 > len(dataC.hex()) >= 900:
                             visback = remote
@@ -933,7 +906,11 @@ class Proxy:
                             roomretst = False
 
                         # print(roomretst)
+                        ######
+                        if b"/err" in dataS:
+                            inret()
 
+                        #####
                         try:
                             if '1200' in dataS.hex()[0:4] and b'++' in dataS and idinfo == True:
                                 newdataS2 = dataS.hex()
@@ -956,8 +933,13 @@ class Proxy:
                                     sleep(0.2)
                             except:
                                 pass
+                        
+                        if b"/add" in dataS and "1200" in dataS.hex()[0:4]:
+                            invite.send(b'\x06\x00\x00\x00\x82\x08\xfc\x82\xd1\xa6\x02\x10\x06 \x02*v\x08\xad\xa7\xc0\xee\x06\x1a&[f50057]\xc6\x91\xe1\xad\x84\xe3\x85\xa4\xca\x9f\xd6\x85\xca\x9f\xca\x8f\xe3\x85\xa4\xe2\x9d\x80[f50057]2\x02ME@A\xb0\x01\x13\xb8\x01\x86"\xd8\x01\xfd\xd6\xd0\xad\x03\xe0\x01\x85\xdb\x8d\xae\x03\xea\x01\x13\xe3\x85\xa4\xd8\xa7\xd9\x84\xd9\x81\xd8\xb1\xd8\xa7\xd8\x8f\xd9\x86\xd8\xa9\xf0\x01\x01\xf8\x01\x95\x01\x80\x02\xfd\x98\xa8\xdd\x03\x90\x02\x01\xd0\x02\x13\xd8\x02d')
+
                         if b'/ret' in dataS and '1200' in dataS.hex()[0:4]:
                            clieee.send(lag)
+
                         if b"/back" in dataS:
                            print("You Are Invisible in Room !")
                            invtoroom.send(invtoroompacket)
