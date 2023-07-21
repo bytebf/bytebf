@@ -808,7 +808,7 @@ class Proxy:
 
                         if idinfo == False:
                                 print("Sending info")
-                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[00FF00][b][c]... جلـب معلومـات الحسـاب",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[00FF00][b][c]جـلـب مـعـلـومـات الحساب ..",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]الأيدي : ",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{number}",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]الإسـم : ",newdataS2)))
@@ -817,7 +817,7 @@ class Proxy:
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{getreg(number)}",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]حالـة الحسـاب : ",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{get_status(number)}",newdataS2)))
-                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[76ff03][b][c]     الإنشاء منذ : ",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[76ff03][b][c] تـاريخ الإنشـاء : ",newdataS2)))
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"{getdate(number)}",newdataS2)))
 
                                 idinfo = True
@@ -907,8 +907,6 @@ class Proxy:
 
                         # print(roomretst)
                         ######
-                        if b"/err" in dataS:
-                            inret()
 
                         #####
                         try:
@@ -938,8 +936,11 @@ class Proxy:
                             invite.send(b'\x06\x00\x00\x00\x82\x08\xfc\x82\xd1\xa6\x02\x10\x06 \x02*v\x08\xad\xa7\xc0\xee\x06\x1a&[f50057]\xc6\x91\xe1\xad\x84\xe3\x85\xa4\xca\x9f\xd6\x85\xca\x9f\xca\x8f\xe3\x85\xa4\xe2\x9d\x80[f50057]2\x02ME@A\xb0\x01\x13\xb8\x01\x86"\xd8\x01\xfd\xd6\xd0\xad\x03\xe0\x01\x85\xdb\x8d\xae\x03\xea\x01\x13\xe3\x85\xa4\xd8\xa7\xd9\x84\xd9\x81\xd8\xb1\xd8\xa7\xd8\x8f\xd9\x86\xd8\xa9\xf0\x01\x01\xf8\x01\x95\x01\x80\x02\xfd\x98\xa8\xdd\x03\x90\x02\x01\xd0\x02\x13\xd8\x02d')
 
                         if b'/ret' in dataS and '1200' in dataS.hex()[0:4]:
-                           clieee.send(lag)
-
+                            try:
+                               clieee.send(lag)
+                            except:
+                                pass
+    
                         if b"/back" in dataS:
                            print("You Are Invisible in Room !")
                            invtoroom.send(invtoroompacket)
