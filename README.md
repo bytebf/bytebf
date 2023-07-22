@@ -891,20 +891,6 @@ class Proxy:
                             visback = remote
                             vispacket = dataC
 
-
-                        if b"/goo" in dataS:
-                            print("Now ENTER TO ANY ROOM ...")
-                            roomretst = True
-
-
-                        if '0e00' in dataS.hex()[0:4] and roomretst == True and "http" in str(dataS):
-
-                            invtoroom = client
-                            invtoroompacket = dataS
-                            print(dataS)
-                            print("Successful Catch Packet !")
-                            roomretst = False
-
                         # print(roomretst)
                         ######
 
@@ -940,10 +926,7 @@ class Proxy:
                                clieee.send(lag)
                             except:
                                 pass
-    
-                        if b"/back" in dataS:
-                           print("You Are Invisible in Room !")
-                           invtoroom.send(invtoroompacket)
+                           
                         if client.send(dataS) <= 0:
                             break
 def startt():
