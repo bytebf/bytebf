@@ -38,10 +38,6 @@ def getdate(playerid):
         return f"[b][c][ffea00]--> {dc}\n\n[18ffff]{years} سـنـوات \n\n{months} شـهـور \n\n{days} يـوم "
     except:
         return f"[b][c][ffea00]--> {dc}"
-
-
-
-        # return f"--> {dc}"
     
 def getreg(Id):    
      
