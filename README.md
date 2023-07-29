@@ -39,7 +39,7 @@ def getdate(playerid):
         days = (delta.days % 365) % 30
         return f"[b][c][ffea00]--> {dc}\n\n[18ffff]{years} سـنـوات \n\n{months} شـهـور \n\n{days} يـوم "
     except:
-        return f"[b][c][ffea00]--> {dc}"
+        return dc
     
 def getreg(Id):    
      
