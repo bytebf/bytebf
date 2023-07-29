@@ -18,6 +18,8 @@ increase =False
 socktion =None
 SOCKS_VERSION = 5
 packet =b''
+defult_value = 000000000000000000000000000000000
+
 full = False
 #
 ####
@@ -680,6 +682,10 @@ class Proxy:
                 if remote in r:
 
                     ######
+                    global defult_value
+                    global invvs
+                    global invvspacket
+                    
                     global hidr
                     global cliee
                     global lag
@@ -852,6 +858,11 @@ class Proxy:
                                if match:
                                    number = match.group(1)
                                    roomp = True
+                                   if number != defult_value:
+                                        print("Done Catch packet")
+                                        invvs = client
+                                        invvspacket = dataS
+                                        defult_value = number
 
                                    break
                            if match:
@@ -871,6 +882,13 @@ class Proxy:
                                 packet1 = dataS
                                 hidd = client
                                 hide = False
+
+                        if b"/ref" in dataS:
+                            try:
+                                print("Done Send Packet ..")
+                                invvs.send(invvspacket)
+                            except:
+                                pass
 
 
 
