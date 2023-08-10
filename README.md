@@ -808,7 +808,7 @@ class Proxy:
                                 packet0300 = False
 
 
-                        if  port == 39698:
+                        if  port == 39699:
                             invite = client
                             snv = remote
 
