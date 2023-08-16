@@ -400,19 +400,6 @@ def spam(server,packet):
             if statues == False:
                 break
 
-def getwe(dataC):
-    global one
-    global client_id
-    global enc_client_id
-    one = False
-    data = dataC.hex()
-    print(data)
-    d =DecryptFF(data[12:])
-    client_id = str(d['account_id'])
-    enc_client_id = convert_id(client_id)
-    print("Player Id : ", client_id)
-    print("Encrypted Player Id : ", enc_client_id)
-
 
 SOCKS_VERSION = 5
 
@@ -736,9 +723,7 @@ class Proxy:
                     #####
 
 
-                    if '0115' in dataC.hex()[:4] and one == True :  #'0115' in dataC.hex()[:4] and
-                        pass
-                        t =threading.Thread(target=getwe,args=(dataC,)).start()
+
 
                     if '0515' in dataC.hex()[0:4] and len(dataC.hex()) >= 141:
                         hide = True
@@ -829,7 +814,17 @@ class Proxy:
 
                     dataS = remote.recv(999999)
 
-                    
+                    if '1200' in dataS.hex()[:4] and one == True :
+                        one = False
+                        start_marker = "08"
+                        end_marker = "10"
+
+                        start_index = dataS.hex().find(start_marker) + len(start_marker)
+                        end_index = dataS.hex().find(end_marker, start_index)
+
+                        if start_index != -1 and end_index != -1:
+                            enc_client_id = dataS.hex()[start_index:end_index]
+                            print(enc_client_id)
 
                          
                     if b"/555" in dataS:
