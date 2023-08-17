@@ -5,7 +5,7 @@ import select
 import re
 import requests
 from datetime import datetime
-
+lag_status = False
 global roomretst
 roomretst = False
 gameplayed= 0
@@ -64,6 +64,41 @@ def EncryptFF(packet):
 
 
 ##############################################
+def lag_sqqq(five,target_id):
+    global enc_client_id
+    # if len(num) == 8:
+    
+    #     newpaa = "0515000000a0"+EncryptFF(f"083d12980108e8bbf3ea02128f0108{target_id}10{enc_client_id}1a0e4d4f48414d4544e385a44259544520a7f48fae0328ca88daa606303e381a42600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f4141634854746372366e6753636c6d446839554d4c7878374c67725a387235555333594258357936316a4437686c4e5a3d7339362d63100118014805")
+    # else:
+
+    paa = f"083d12990108{target_id}12900108{target_id}10d3b1b0b91c1a0e4d4f48414d4544e385a44259544520a7f48fae032899f8d6a606303e381a42600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f4141634854746372366e6753636c6d446839554d4c7878374c67725a387235555333594258357936316a4437686c4e5a3d7339362d63100118014805"
+    newpaa = "0515000000a0"+EncryptFF(paa)
+    global lag_status
+    for i in range(1450):
+        if lag_status == False:
+            break
+        five.send(bytes.fromhex(newpaa))
+        for l in range(1):
+            time.sleep(0.005)
+            print(f"lag{i}")
+
+
+def destroy():
+    global dataS
+    global five
+    print("i'm Here")
+    while True:
+        if '0f00' in dataS.hex()[:4]:
+            print("yes")
+            pattern = r'40(.{8,12})80'
+            matches = re.findall(pattern, dataS.hex())
+            print(matches)
+            for match in matches:
+                    print(match[:-1])
+                    target_id2 = match[:-1]
+                    print(target_id2)
+                    threading.Thread(target=lag_sqqq,args=(five,target_id2)).start()
+            break
 
 def getdate(playerid):
     global data, dc
@@ -658,10 +693,9 @@ class Proxy:
                     global vispacket
                     global dataC
                     global five
+                    global lag_status
                     global cw
                     dataC = client.recv(999999)
-
-
 
                     global hide
                     hide =False
@@ -757,7 +791,9 @@ class Proxy:
                     global invtoroompacket
                     global snv
                     global newdataS2
+                    global enc_client_id
                     global packet1
+                    global dataS
 
                     dataS = remote.recv(999999)
                     if '1200' in dataS.hex()[:4] and one == True :
@@ -772,6 +808,21 @@ class Proxy:
                             enc_client_id = dataS.hex()[start_index:end_index]
                             print(f"Encrypted Player id : {enc_client_id}")
 
+                    if '1200' in dataS.hex()[0:4] and b'--' in dataS and 420 > len(dataS.hex()) > 350:
+                        print(len(dataS.hex()))
+                        print("dESTROOOOOOOOOOOOOOOOOOOOOOOOOOOY")
+                        newdataS2 = dataS.hex()
+                        lag_status = True
+                        text = str(bytes.fromhex(newdataS2))
+                        match = re.search(r'\-\-(.*?)\(', text)
+                        numb = match.group(1)
+                        target_id = convert_id(str(numb))
+                        print(target_id)
+                        pay = f"080112090a05{target_id}1001"
+                        new_pay = "0f1500000010"+EncryptFF(pay)
+                        five.send(bytes.fromhex(new_pay))
+                        threading.Thread(target=destroy).start()
+
                     if '1200' in dataS.hex()[0:4] and b'++' in dataS and "1215":
                         if b"***" in dataS:
                                 dataS = dataS.replace(b"***",b"106")
@@ -781,6 +832,7 @@ class Proxy:
                         number = match .group(1)
                         target_id = convert_id(str(number)) #target_id
                         print(f"target_id -->{target_id}")
+
                         if len(number) == 10:
                             py_packet = EncryptFF(f"082112e10408{target_id}12024d45180220092a0e010407090a0b120f16191a1e20233211534849524fe385a4485550e385a4efa3bf380140e8074864520245475a203734323862323533646566633136343031386336303461316562626665626466600168{target_id}8001018a0187030a8001303946464233424632344334453135443032303638363035353535353030303030313130303030323031304530303631313933333134343530383435313434353431373432323134313130313033326137383566643433313831653964623062363463386431366530303030303066663261326531363031346636356161623610bc0a1add017650545212074e735e594b507f697a43077a7e0f5a6f635e515d61730d7e546352450a120845694156594054637c5d7f64404f737a06587b406247510163465b090514024a035365747b0e7657417c024241604f434b63557c4972715d017e7f0f14034c6f5c0250075a501e475a7355634c057575076859447f0645447247041b0e4d4056435c637f6f6e055c6a7901660a0b00764501547f690f7507600b11024d550c7b045e7f53555e764a404f500f7046597177795b6b607542090d1a0c4b670e676d70436848604354795540430f76446b04006d69006b7e620c22047757595430073a0a1571607a5071787f13154207312e3130302e3348035002900101a201080a04494443311065ba01520a4c68747470733a2f2f67726170682e66616365626f6f6b2e636f6d2f76392e302f3534333935303432363130353731322f706963747572653f77696474683d313630266865696768743d31363010011801c001c6dd8dae03d20100")
                             print(f"py_packet-->{py_packet}")
@@ -843,10 +895,9 @@ class Proxy:
                             getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{get_status(number)}",newdataS2)))
                             getin.send(bytes.fromhex(gen_msgv2_clan(f"[76ff03][b][c] تـاريخ الإنشـاء : ",newdataS2)))
                             getin.send(bytes.fromhex(gen_msgv2_clan(f"{getdate(number)}",newdataS2)))
-
                             idinfo = True
 
-                    
+
 
                     if startspammsg == False: #/f
                         statues = False
