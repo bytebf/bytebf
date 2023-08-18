@@ -35,6 +35,14 @@ def command_bot(value42w):
     command = value42w
     return command
 
+global add_yout
+add_yout = False
+
+def youtubers(value42):
+    global add_yout
+    add_yout = value42
+    return add_yout
+
 def sendi():
     global snv,dataC
     while True:
@@ -613,8 +621,7 @@ class Proxy:
 
 
 
-        global add_yout
-        add_yout = False
+        
         ########
 
         while True:
@@ -630,11 +637,6 @@ class Proxy:
 
             # crazymode
 
-            global youtubers
-            def youtubers(value42):
-                global add_yout
-                add_yout = value42
-                return add_yout
             
 
 
@@ -757,6 +759,7 @@ class Proxy:
                     global invtoroom
                     global invtoroompacket
                     global snv
+                    global add_yout
                     global newdataS2
                     global enc_client_id
                     global packet1
@@ -799,6 +802,7 @@ class Proxy:
                                 print(f"Encrypted Player id : {enc_client_id}")
 
                         if '1200' in dataS.hex()[0:4] and b'--' in dataS and 700 > len(dataS.hex()) and command == True:
+                            print("destroy!")
                             if b"***" in dataS:
                                 dataS = dataS.replace(b"***",b"106")
                             newdataS2 = dataS.hex()
@@ -892,7 +896,6 @@ class Proxy:
                                 for msg in lis:
                                     remote.send(msg)
                                     sleep(0.3)
-
                                 packet0300 = False
 
                         if b"/sss" in dataS and "1215" in dataC.hex()[0:4] and command == True:
@@ -969,6 +972,8 @@ class Proxy:
                         if b"/rec" in dataS and '1200' in dataS.hex()[0:4]:
                             remote.send(b'\x05\x03\x00\x00')
 
+                        if b"/startt" in dataS:
+                            command = True
 
                         if '1200' in dataS.hex()[0:4] and b'/f' in dataS and command == True:
                                 if b"***" in dataS:
@@ -992,8 +997,7 @@ class Proxy:
 
 
 
-                        if '1200' in dataS.hex()[0:4] and b'/+' in dataS and idinfo == True and command == True:
-
+                        if '1200' in dataS.hex()[0:4] and b'/+' in dataS  and idinfo == True and command == True:
                                 start_marker = b'/+'
                                 end_marker = b'('
                                 start_index = dataS.find(start_marker) + len(start_marker)
@@ -1008,14 +1012,11 @@ class Proxy:
                         if add_yout == True:
                             add_yout = False
                             from time import sleep
-
                             for h in yout_list:
                                     invite.send(h)
                                     sleep(0.2)
 
-
-
-                        if b'/ret' in dataS and '1200' in dataS.hex()[0:4]:
+                        if b'/ret' in dataS and '1200' in dataS.hex()[0:4] and 700 > dataS.hex():
                                clieee.send(lag)
                            
                         if client.send(dataS) <= 0:
