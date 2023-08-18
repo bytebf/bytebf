@@ -46,9 +46,6 @@ def sendi():
         if '0515' in dataC.hex()[0:4] and len(dataC.hex()) >= 900:
             for i in range(400):
                 snv.send(dataC)
-                for k in range(1):
-                    time.sleep(0.001)
-
             break
 
 def start_game():
@@ -304,7 +301,6 @@ def sendi():
         if '0515' in dataC.hex()[0:4] and len(dataC.hex()) >= 900:
             for i in range(400):
                 snv.send(dataC)
-                for k in range(1):
             break
 
 ###
