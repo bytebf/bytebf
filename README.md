@@ -32,6 +32,24 @@ def command_bot(value42w):
     command = value42w
     return command
 
+global startspammsg
+startspammsg = False
+
+def spamsg(value):
+    global startspammsg
+    startspammsg = value
+    return startspammsg
+
+def sendi():
+    global snv,dataC
+    while True:
+        if '0515' in dataC.hex()[0:4] and len(dataC.hex()) >= 900:
+            for i in range(400):
+                snv.send(dataC)
+                for k in range(1):
+                    time.sleep(0.001)
+
+            break
 
 def start_game():
     global dataS
@@ -46,6 +64,10 @@ def start_game():
             break
         print("No id")
         time.sleep(0.1)
+
+def runsnv():
+    threading.Thread(target=sendi).start()
+    threading.Thread(target=sendi).start()
 
 def enter_to():
     global dataS
@@ -595,8 +617,7 @@ class Proxy:
         packet0300 = True
         roba = 1
         stat = True
-        global startspammsg
-        startspammsg = False
+
 
         global lg_room
         lg_room = False
@@ -618,7 +639,6 @@ class Proxy:
             ######################################
             #spam messages
 
-            global spamsg
             def spamsg(value):
                 global startspammsg
                 startspammsg = value
