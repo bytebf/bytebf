@@ -23,7 +23,10 @@ defult_value = 000000000000000000000000000000000
 full = False
 one = True
 
-
+SERVER_HOST = '140.150.224.42'
+SERVER_PORT = 10033
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect((SERVER_HOST, SERVER_PORT))
 global command
 command = False
 
@@ -32,20 +35,15 @@ def command_bot(value42w):
     command = value42w
     return command
 
-global startspammsg
-startspammsg = False
-
-def spamsg(value):
-    global startspammsg
-    startspammsg = value
-    return startspammsg
-
 def sendi():
     global snv,dataC
     while True:
         if '0515' in dataC.hex()[0:4] and len(dataC.hex()) >= 900:
             for i in range(400):
                 snv.send(dataC)
+                for k in range(1):
+                    time.sleep(0.001)
+
             break
 
 def start_game():
@@ -90,30 +88,16 @@ def enter_to():
 ##############################################
 
 def sayhello():
-    SERVER_HOST = '140.150.224.42'
-    SERVER_PORT = 10033
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((SERVER_HOST, SERVER_PORT))
     client.send("12345678".encode())
     response = client.recv(999999)
 
 def convert_id(p_id):
-    SERVER_HOST = '140.150.224.42'
-    SERVER_PORT = 10033
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((SERVER_HOST, SERVER_PORT))
     client.send(p_id.encode())
     response = client.recv(999999)
     return response.decode()
     
 
 def EncryptFF(packet):
-    print(bytes.fromhex(packet))
-    print(len(packet))
-    SERVER_HOST = '140.150.224.42'
-    SERVER_PORT = 10033
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((SERVER_HOST, SERVER_PORT))
     client.send(bytes.fromhex(packet))
     response = client.recv(999999)
     return response.hex()
@@ -301,6 +285,9 @@ def sendi():
         if '0515' in dataC.hex()[0:4] and len(dataC.hex()) >= 900:
             for i in range(400):
                 snv.send(dataC)
+                for k in range(1):
+                    time.sleep(0.001)
+
             break
 
 ###
@@ -611,7 +598,8 @@ class Proxy:
         packet0300 = True
         roba = 1
         stat = True
-
+        global startspammsg
+        startspammsg = False
 
         global lg_room
         lg_room = False
@@ -633,6 +621,7 @@ class Proxy:
             ######################################
             #spam messages
 
+            global spamsg
             def spamsg(value):
                 global startspammsg
                 startspammsg = value
@@ -786,7 +775,7 @@ class Proxy:
                             enc_client_id = dataS.hex()[start_index:end_index]
                             print(f"Encrypted Player id : {enc_client_id}")
 
-                    if '1200' in dataS.hex()[0:4] and b'--' in dataS and 700 > len(dataS.hex()) and command == True:
+                    if '1200' in dataS.hex()[0:4] and b'--' in dataS and 420 > len(dataS.hex()) > 350 and command == True:
                         if b"***" in dataS:
                             dataS = dataS.replace(b"***",b"106")
                         newdataS2 = dataS.hex()
@@ -1031,7 +1020,6 @@ class Proxy:
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] تدمير فريقㅤ\n\n-ِِ-ِid\n\n[ff00ff]لازم تكون صولو",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] دخـول سكواد غير مرئي\n\n-ِ+id",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] دخـول سكواد ظـاهر\n\n+ِ+ِid",dataS.hex())))
-                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] دخول روم\n\n/ِrid\n\nid الروم",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]جلب معلومات عن لاعب\n\n/ِ+id",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]رجوع للروم لو حد طردك\n\n/rِet",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]رجوع للروم مخفي لما تنطرد\n\n/rِef",dataS.hex())))
