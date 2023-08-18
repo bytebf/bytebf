@@ -763,256 +763,7 @@ class Proxy:
                     global dataS
 
                     dataS = remote.recv(999999)
-                    if '1200' in dataS.hex()[:4] and one == True :
-                        one = False
-                        start_marker = "08"
-                        end_marker = "10"
 
-                        start_index = dataS.hex().find(start_marker) + len(start_marker)
-                        end_index = dataS.hex().find(end_marker, start_index)
-
-                        if start_index != -1 and end_index != -1:
-                            enc_client_id = dataS.hex()[start_index:end_index]
-                            print(f"Encrypted Player id : {enc_client_id}")
-
-                    if '1200' in dataS.hex()[0:4] and b'--' in dataS and 420 > len(dataS.hex()) > 350 and command == True:
-                        if b"***" in dataS:
-                            dataS = dataS.replace(b"***",b"106")
-                        newdataS2 = dataS.hex()
-                        lag_status = True
-                        text = str(bytes.fromhex(newdataS2))
-                        match = re.search(r'\-\-(.*?)\(', text)
-                        numb = match.group(1)
-                        target_id = convert_id(str(numb))
-                        print(target_id)
-                        pay = f"080112090a05{target_id}1001"
-                        new_pay = "0f1500000010"+EncryptFF(pay)
-                        five.send(bytes.fromhex(new_pay))
-                        threading.Thread(target=destroy).start()
-
-                    if '1200' in dataS.hex()[0:4] and b'++' in dataS and "1215" and command == True:
-                        if b"***" in dataS:
-                                dataS = dataS.replace(b"***",b"106")
-                        newdataS2 = dataS.hex()
-                        text = str(bytes.fromhex(newdataS2))
-                        match = re.search(r'\+\+(.*?)\(', text)
-                        number = match .group(1)
-                        target_id = convert_id(str(number)) #target_id
-                        if len(number) == 10:
-                            py_packet = EncryptFF(f"082112e10408{target_id}12024d45180220092a0e010407090a0b120f16191a1e20233211534849524fe385a4485550e385a4efa3bf380140e8074864520245475a203734323862323533646566633136343031386336303461316562626665626466600168{target_id}8001018a0187030a8001303946464233424632344334453135443032303638363035353535353030303030313130303030323031304530303631313933333134343530383435313434353431373432323134313130313033326137383566643433313831653964623062363463386431366530303030303066663261326531363031346636356161623610bc0a1add017650545212074e735e594b507f697a43077a7e0f5a6f635e515d61730d7e546352450a120845694156594054637c5d7f64404f737a06587b406247510163465b090514024a035365747b0e7657417c024241604f434b63557c4972715d017e7f0f14034c6f5c0250075a501e475a7355634c057575076859447f0645447247041b0e4d4056435c637f6f6e055c6a7901660a0b00764501547f690f7507600b11024d550c7b045e7f53555e764a404f500f7046597177795b6b607542090d1a0c4b670e676d70436848604354795540430f76446b04006d69006b7e620c22047757595430073a0a1571607a5071787f13154207312e3130302e3348035002900101a201080a04494443311065ba01520a4c68747470733a2f2f67726170682e66616365626f6f6b2e636f6d2f76392e302f3534333935303432363130353731322f706963747572653f77696474683d313630266865696768743d31363010011801c001c6dd8dae03d20100")
-                            five.send(bytes.fromhex("051500000270"+py_packet))
-                            # remote.send(b'\x05\x03\x00\x00')
-
-                        if len(number) == 9:
-                            py_packet = EncryptFF(f"082112e60408{target_id}12024d45180220092a0e010407090a0b120f16191a1e2023320f42595445e385a4424f54e385a45633380140e8074864520245475a203734323862323533646566633136343031386336303461316562626665626466600168{target_id}8001018a0185030a8001303946454233424545334630343230363032303339303035353535353030303030313131303030323031304630303637313336423139363330393633313936333431373432323134313130313033326637383566643433313831653964623062363463386431366530303030303066663264333131383031653466396562313110fb0e1add0177515b5d11024f75575843507f607e42037a760753606550515963720c77526a534f0f100b4d69475657455b607f57766b4048797a0f5a714b644e56026c4053020e10024400556c737a04725546760442496e4f4649665673497370520e7d7a0e120a4d675c0259035b541e4f527a5a65420571770669504276074f4170440c1b084d4e534c5f60756661055b607908640000067f42025b7961047e036005120444520d71005c7859535e7e44404a520a7349597076765468657444000c120c4b6e0a6669704b60416f455a795142420e7f4262050a686b03637e640c22047f575f5430073a081c617f747b6115154207312e3130302e3348035002900101a201080a04494443311053ba01600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414163485474644e756868595a377936422d5a45726b77536d686758383651626b4170316f53414b31384e376c5836423d7339362d6310011801d201020801")
-                            five.send(bytes.fromhex("051500000270"+py_packet))
-                            # remote.send(b'\x05\x03\x00\x00')
-
-                        
-                        if len(number) == 8:
-                            py_packet = EncryptFF(f"082112ee0408{target_id}12024d45180220092a0e010407090a0b120f16191a1e2023320e4d4f48414d4544e385a4425954453801408b084864520245475a203734323862323533646566633136343031386336303461316562626665626466600168e8bbf3ea028001018a0186030a8001303946464233424543373343423846323032303231363031313131313030303030303636303030323030363430303045303332463336383030383830333638303431373432323134313130313033303637383566643433313831653964623062363463386431366530303030303066663036303630343031653463326635653910f9021add01705e555411024e71595a445f71697e42027e7805546f6b5951596276027555655d460f100a49674551584b52607f567265424f7674065a714a60405405634e5a020e11064a0252637d7304725442780645466046464967527d4b747f5c077d7a0f16044f60530c50035b551a41507d556b4b0571760267524579094641704508150a4a415d455f6074626f075c6f770164000102714005547768047e02640b10034b5c0471005d7c575159714a494a520b77475b7779785d686575400e0e150345670a666874456246604b5379514346007d456d0b03686b026770660b22047b595d5330073a091d7c710067066617124207312e3130302e3348035002900103980106a201090a044944433110ac02ba01600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f4141634854746372366e6753636c6d446839554d4c7878374c67725a387235555333594258357936316a4437686c4e5a3d7339362d6310011801c001a7f48fae03d20100")
-                            five.send(bytes.fromhex("051500000280"+py_packet))
-                            # remote.send(b'\x05\x03\x00\x00')
-
-                        
-
-
-                    if b"/555" in dataS and "1215" in dataC.hex()[0:4] and command == True:
-                        cw.send(bytes.fromhex(f"050000027108{enc_client_id}100520122ae40408{enc_client_id}12024d4518012004328e0408{enc_client_id}1211534849524fe385a4485550e385a4efa3bf1a024d4520b6f3d7a6062841308bcbd13038324214e99fe061e8b6ce64a6a3e860c3b5ce64d79ba3614801500158e80768c6dd8dae037a058990c5b00382012408dbdaf1eb04120ad8a7d984d988d8add8b4180720df87d4f0042a0808cb9d85f304100388019dffc4b00392010e010407090a0b120f16191a1e2023980101a801d288f8b103c00101c80101e80106f00112880203920208b609ca13b917f923aa0207080110e7592001aa0208080210963318dc0baa0206080f10a09c01aa0205081710894faa0205081810de3caa0205081a10ba40aa0205081b10b237aa0205081c10b247aa02050820109749aa0205082210ee40aa0205082310a845aa0205082b10cb41aa0206083910fa9801aa0206083d10829c01aa0208084910803218dc0baa0205084d10e432aa0206082110a09c01aa0205083110cb41aa0206084110a09c01aa0206083410a09c01aa0205082810e432aa0205082910e432c2021712041a0201041a0208501a090848120501040506072200ca020e0804106d1858200128f0c0e5a606d00205ea02520a4c68747470733a2f2f67726170682e66616365626f6f6b2e636f6d2f76392e302f3534333935303432363130353731322f706963747572653f77696474683d313630266865696768743d31363010011801f2020082030b08f8ddcab0032a03108d018a03003a011a403e50056801721e313639313734343639343831393738363933335f3730666e736b733666717801820103303b30880181e08bc5b9d3f4b917a20100a80101b00114"))
-                        gg = EncryptFF(f"0811121a08{enc_client_id}10011804203e2a011a400548015203303b306814")
-                        five.send(bytes.fromhex("051500000020"+gg))
-
-
-                    if '1200' in dataS.hex()[0:4] and b'-+' in dataS and command == True:
-                                if b"***" in dataS:
-                                    dataS = dataS.replace(b"***",b"106")
-                                print("enteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer")
-                                newdataS2 = dataS.hex()
-                                text = str(bytes.fromhex(newdataS2))
-                                match = re.search(r'\-\+(.*?)\(', text)
-                                number = match .group(1)
-                                print(number)
-                                target_id = convert_id(str(number))
-                                pay = f"080112090a05{target_id}1001"
-                                new_pay = "0f1500000010"+EncryptFF(pay)
-                                five.send(bytes.fromhex(new_pay))
-                                threading.Thread(target=enter_to).start()
-
-
-                    if "1200" in dataS.hex()[0:4] and b"/r" in dataS and 420 > len(dataS.hex()) > 350 and command == True:
-                        start_marker = b'/r'
-                        end_marker = b'('
-                        start_index = dataS.find(start_marker) + len(start_marker)
-                        end_index = dataS.find(end_marker, start_index)
-                        value_bytes = dataS[start_index:end_index]
-                        value = value_bytes.decode('utf-8')
-                        if len(value) == 7:
-                            print(value)
-                            room_id = convert_id(value)                 
-                            cw.send(bytes.fromhex(f"0e0000029208{enc_client_id}100e20052a85050aae0108{enc_client_id}10{enc_client_id}1a0f42595445e385a4424f54e385a45633206430014a0f010407090a0b120d0f16191a1e20235801600168e8077001800181d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414163485474644e756868595a377936422d5a45726b77536d686758383651626b4170316f53414b31384e376c5836423d7339362d6310011801ba0102080112d10308{room_id}12134d4f48414d4544e385a44259544520d8bad8b118d3b1b0b91c2001280f3802401e52033535355ab70108{enc_client_id}1aae0108{enc_client_id}10{enc_client_id}1a0f42595445e385a4424f54e385a45633206430014a0f010407090a0b120d0f16191a1e20235801600168e8077001800181d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414163485474644e756868595a377936422d5a45726b77536d686758383651626b4170316f53414b31384e376c5836423d7339362d6310011801ba010208015abc0108d3b1b0b91c1ab30108d3b1b0b91c10d3b1b0b91c1a0e4d4f48414d4544e385a442595445206428a7f48fae0330014a0f010407090a0b120d0f16191a1e202358016001688b0870037806800182d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f4141634854746372366e6753636c6d446839554d4c7878374c67725a387235555333594258357936316a4437686c4e5a3d7339362d6310011801ba01006801700178019001c092d1519801c8c89005da0100e80101f00101f80180d08d81b9f58cbd178202020101"))
-
-
-                    if cmode == True and cmodeinfo==True:
-                        cmodeloop = True
-                        cmodeinfo = False
-                        threading.Thread(target=crazymode,args=(team,packett1,packett)).start()
-
-                    if cmode == False:
-                        cmodeloop = False
-                        cmodeinfo = True
-
-                    
-
-                    if '1200' in dataS.hex()[0:4] and b'GroupID' in dataS and packet0300 == True  :
-                            from time import sleep
-                            lis = [p1,p2,p3,p4,p5,xmoodz]
-                            for msg in lis:
-                                remote.send(msg)
-                                sleep(0.3)
-
-                            packet0300 = False
-
-                    if b"/sss" in dataS and "1215" in dataC.hex()[0:4] and command == True:
-                        print("Start_game")
-                        pay = f"080112090a05{enc_client_id}1001"
-                        new_pay = "0f1500000010"+EncryptFF(pay)
-                        five.send(bytes.fromhex(new_pay))
-                        threading.Thread(target=start_game).start()
-
-
-
-                    if  port == 39699:
-                        invite = client
-                        snv = remote
-
-
-                    if startspammsg == True:     #/spam
-                       recordmode = True
-
-                    if idinfo == False and command == True:
-                            print("Sending info")
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"[00FF00][b][c]جـلـب مـعـلـومـات الحساب ..",newdataS2)))
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]الأيدي : ",newdataS2)))
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{number}",newdataS2)))
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]الإسـم : ",newdataS2)))
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{getname(number)}",newdataS2)))
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]السيرفـر : ",newdataS2)))
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{getreg(number)}",newdataS2)))
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]حالـة الحسـاب : ",newdataS2)))
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{get_status(number)}",newdataS2)))
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"[76ff03][b][c] تـاريخ الإنشـاء : ",newdataS2)))
-                            getin.send(bytes.fromhex(gen_msgv2_clan(f"{getdate(number)}",newdataS2)))
-                            idinfo = True
-
-
-
-                    if startspammsg == False: #/f
-                        statues = False
-
-                    if '0e00' in dataS.hex()[0:4]:
-                       for i in range(10):
-                           pattern = fr"x0{str(i)}(\d+)Z"
-                           match = re.search(pattern, str(dataS))
-                           if match:
-                               number = match.group(1)
-                               roomp = True
-                               if number != defult_value:
-                                    print("Done Catch packet")
-                                    invvs = client
-                                    invvspacket = dataS
-                                    defult_value = number
-
-                               break
-                       if match:
-                           pass
-                       else:
-                           if "OPENATTRIBUTESEXT" in str(dataS):
-                                pass
-
-                    if  '0500' in dataS.hex()[0:4] and hide == True :
-                        if len(dataS.hex())<=30:
-                            hide = True
-                        if len(dataS.hex())>=100:
-                            packet1 = dataS
-                            hidd = client
-                            hide = False
-
-                    if b"/ref" in dataS and "1200" in dataS.hex()[0:4] and 430 > len(dataS.hex()) > 200 and command == True:
-                        try:
-                            print("Done Send Packet ..")
-                            invvs.send(invvspacket)
-                        except:
-                            pass
-
-
-
-                    if b"/rec" in dataS and '1200' in dataS.hex()[0:4]:
-                        try:
-                            remotesockett.close()
-                            clientsockett.close()
-                        except:
-                            pass
-                        finally:
-                            remote.send(b'\x05\x03\x00\x00')
-
-                    try:
-
-                        if '1200' in dataS.hex()[0:4] and b'/f' in dataS and command == True:
-                            if b"***" in dataS:
-                                dataS = dataS.replace(b"***",b"106")
-                            start_marker = b'/f'
-                            end_marker = b'('
-                            start_index = dataS.find(start_marker) + len(start_marker)
-                            end_index = dataS.find(end_marker, start_index)
-                            value_bytes = dataS[start_index:end_index]
-                            number = value_bytes.decode('utf-8')
-                            target_id = convert_id(str(number))
-                            BNS = ["b2dd8dae03","b1dd8dae03","bfdc8dae03"]
-                            probabilities = [3.3333, 3.3333, 3.3333]
-                            B_N = random.choices(BNS, probabilities)[0]
-                            if len(target_id) == 8:
-                                cw.send(bytes.fromhex(f"060000007708d4d7faba1d100620022a6b08{target_id}1a1b5b3030666666665d42595445202020424f542e5b3030666666665d32024d454049b00101b801e807d801d4d8d0ad03e001{B_N}ea011eefbca8efbca5efbcb2efbcafefbcb3efbca8efbca9efbcadefbca1efa3bf8002fd98a8dd03900201d00201"))
-                            
-                            if len(target_id) > 8:
-                                print("Add Frind")
-                                cw.send(bytes.fromhex(f"060000006808d4d7faba1d100620022a5c08{target_id}1a1b5b3030464646465d42595445e385a4424f542e5b3030464646465d32024d45404db00113b801a528d801d4d8d0ad03e001{B_N}f00101f8019a018002fd98a8dd03900201d0020cd8022ee002b2e9f7b103"))
-                    except:
-                        pass
-
-                    try:
-                        if '1200' in dataS.hex()[0:4] and b'/+' in dataS and idinfo == True and command == True:
-
-                            start_marker = b'/+'
-                            end_marker = b'('
-                            start_index = dataS.find(start_marker) + len(start_marker)
-                            end_index = dataS.find(end_marker, start_index)
-                            value_bytes = dataS[start_index:end_index]
-                            number = value_bytes.decode('utf-8')
-                            newdataS2 = dataS.hex()
-                            getin = client          
-                            print(number)
-                            idinfo = False
-
-
-                    except:
-                        pass
-
-                    if add_yout == True:
-                        add_yout = False
-                        from time import sleep
-                        try:
-                            for h in yout_list:
-                                invite.send(h)
-                                sleep(0.2)
-                        except:
-                            pass
-                    
-
-                    if b'/ret' in dataS and '1200' in dataS.hex()[0:4]:
-                        try:
-                           clieee.send(lag)
-                        except:
-                            pass
 
                     if b"/help" in dataS and command == True:
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][f50057]أوامـر تـشـغـيـل الـبـوت !",dataS.hex())))
@@ -1032,14 +783,252 @@ class Proxy:
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ]سـبـام طـلـبـات إنضـمـام",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ] سبام رسائل ",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ]بدء إجباري [ff000ِ0]\n\n/sِss",dataS.hex())))
-                        continue
-                       
-                    if client.send(dataS) <= 0:
-                        break
+                    else:    
+
+                        if '1200' in dataS.hex()[:4] and one == True :
+                            remote.send(b'\x05\x03\x00\x00')
+                            one = False
+                            start_marker = "08"
+                            end_marker = "10"
+
+                            start_index = dataS.hex().find(start_marker) + len(start_marker)
+                            end_index = dataS.hex().find(end_marker, start_index)
+
+                            if start_index != -1 and end_index != -1:
+                                enc_client_id = dataS.hex()[start_index:end_index]
+                                print(f"Encrypted Player id : {enc_client_id}")
+
+                        if '1200' in dataS.hex()[0:4] and b'--' in dataS and 420 > len(dataS.hex()) > 350 and command == True:
+                            if b"***" in dataS:
+                                dataS = dataS.replace(b"***",b"106")
+                            newdataS2 = dataS.hex()
+                            lag_status = True
+                            text = str(bytes.fromhex(newdataS2))
+                            match = re.search(r'\-\-(.*?)\(', text)
+                            numb = match.group(1)
+                            target_id = convert_id(str(numb))
+                            print(target_id)
+                            pay = f"080112090a05{target_id}1001"
+                            new_pay = "0f1500000010"+EncryptFF(pay)
+                            five.send(bytes.fromhex(new_pay))
+                            threading.Thread(target=destroy).start()
+
+                        print(command)
+
+                        if '1200' in dataS.hex()[0:4] and b'++' in dataS and "1215" and command == True:
+                            if b"***" in dataS:
+                                    dataS = dataS.replace(b"***",b"106")
+                            newdataS2 = dataS.hex()
+                            text = str(bytes.fromhex(newdataS2))
+                            match = re.search(r'\+\+(.*?)\(', text)
+                            number = match .group(1)
+                            target_id = convert_id(str(number)) #target_id
+                            if len(number) == 10:
+                                py_packet = EncryptFF(f"082112e10408{target_id}12024d45180220092a0e010407090a0b120f16191a1e20233211534849524fe385a4485550e385a4efa3bf380140e8074864520245475a203734323862323533646566633136343031386336303461316562626665626466600168{target_id}8001018a0187030a8001303946464233424632344334453135443032303638363035353535353030303030313130303030323031304530303631313933333134343530383435313434353431373432323134313130313033326137383566643433313831653964623062363463386431366530303030303066663261326531363031346636356161623610bc0a1add017650545212074e735e594b507f697a43077a7e0f5a6f635e515d61730d7e546352450a120845694156594054637c5d7f64404f737a06587b406247510163465b090514024a035365747b0e7657417c024241604f434b63557c4972715d017e7f0f14034c6f5c0250075a501e475a7355634c057575076859447f0645447247041b0e4d4056435c637f6f6e055c6a7901660a0b00764501547f690f7507600b11024d550c7b045e7f53555e764a404f500f7046597177795b6b607542090d1a0c4b670e676d70436848604354795540430f76446b04006d69006b7e620c22047757595430073a0a1571607a5071787f13154207312e3130302e3348035002900101a201080a04494443311065ba01520a4c68747470733a2f2f67726170682e66616365626f6f6b2e636f6d2f76392e302f3534333935303432363130353731322f706963747572653f77696474683d313630266865696768743d31363010011801c001c6dd8dae03d20100")
+                                five.send(bytes.fromhex("051500000270"+py_packet))
+                                # remote.send(b'\x05\x03\x00\x00')
+
+                            if len(number) == 9:
+                                py_packet = EncryptFF(f"082112e60408{target_id}12024d45180220092a0e010407090a0b120f16191a1e2023320f42595445e385a4424f54e385a45633380140e8074864520245475a203734323862323533646566633136343031386336303461316562626665626466600168{target_id}8001018a0185030a8001303946454233424545334630343230363032303339303035353535353030303030313131303030323031304630303637313336423139363330393633313936333431373432323134313130313033326637383566643433313831653964623062363463386431366530303030303066663264333131383031653466396562313110fb0e1add0177515b5d11024f75575843507f607e42037a760753606550515963720c77526a534f0f100b4d69475657455b607f57766b4048797a0f5a714b644e56026c4053020e10024400556c737a04725546760442496e4f4649665673497370520e7d7a0e120a4d675c0259035b541e4f527a5a65420571770669504276074f4170440c1b084d4e534c5f60756661055b607908640000067f42025b7961047e036005120444520d71005c7859535e7e44404a520a7349597076765468657444000c120c4b6e0a6669704b60416f455a795142420e7f4262050a686b03637e640c22047f575f5430073a081c617f747b6115154207312e3130302e3348035002900101a201080a04494443311053ba01600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414163485474644e756868595a377936422d5a45726b77536d686758383651626b4170316f53414b31384e376c5836423d7339362d6310011801d201020801")
+                                five.send(bytes.fromhex("051500000270"+py_packet))
+                                # remote.send(b'\x05\x03\x00\x00')
+
+
+                            if len(number) == 8:
+                                py_packet = EncryptFF(f"082112ee0408{target_id}12024d45180220092a0e010407090a0b120f16191a1e2023320e4d4f48414d4544e385a4425954453801408b084864520245475a203734323862323533646566633136343031386336303461316562626665626466600168e8bbf3ea028001018a0186030a8001303946464233424543373343423846323032303231363031313131313030303030303636303030323030363430303045303332463336383030383830333638303431373432323134313130313033303637383566643433313831653964623062363463386431366530303030303066663036303630343031653463326635653910f9021add01705e555411024e71595a445f71697e42027e7805546f6b5951596276027555655d460f100a49674551584b52607f567265424f7674065a714a60405405634e5a020e11064a0252637d7304725442780645466046464967527d4b747f5c077d7a0f16044f60530c50035b551a41507d556b4b0571760267524579094641704508150a4a415d455f6074626f075c6f770164000102714005547768047e02640b10034b5c0471005d7c575159714a494a520b77475b7779785d686575400e0e150345670a666874456246604b5379514346007d456d0b03686b026770660b22047b595d5330073a091d7c710067066617124207312e3130302e3348035002900103980106a201090a044944433110ac02ba01600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f4141634854746372366e6753636c6d446839554d4c7878374c67725a387235555333594258357936316a4437686c4e5a3d7339362d6310011801c001a7f48fae03d20100")
+                                five.send(bytes.fromhex("051500000280"+py_packet))
+                                # remote.send(b'\x05\x03\x00\x00')
+
+
+
+
+                        if b"/555" in dataS and "1215" in dataC.hex()[0:4] and command == True:
+                            cw.send(bytes.fromhex(f"050000027108{enc_client_id}100520122ae40408{enc_client_id}12024d4518012004328e0408{enc_client_id}1211534849524fe385a4485550e385a4efa3bf1a024d4520b6f3d7a6062841308bcbd13038324214e99fe061e8b6ce64a6a3e860c3b5ce64d79ba3614801500158e80768c6dd8dae037a058990c5b00382012408dbdaf1eb04120ad8a7d984d988d8add8b4180720df87d4f0042a0808cb9d85f304100388019dffc4b00392010e010407090a0b120f16191a1e2023980101a801d288f8b103c00101c80101e80106f00112880203920208b609ca13b917f923aa0207080110e7592001aa0208080210963318dc0baa0206080f10a09c01aa0205081710894faa0205081810de3caa0205081a10ba40aa0205081b10b237aa0205081c10b247aa02050820109749aa0205082210ee40aa0205082310a845aa0205082b10cb41aa0206083910fa9801aa0206083d10829c01aa0208084910803218dc0baa0205084d10e432aa0206082110a09c01aa0205083110cb41aa0206084110a09c01aa0206083410a09c01aa0205082810e432aa0205082910e432c2021712041a0201041a0208501a090848120501040506072200ca020e0804106d1858200128f0c0e5a606d00205ea02520a4c68747470733a2f2f67726170682e66616365626f6f6b2e636f6d2f76392e302f3534333935303432363130353731322f706963747572653f77696474683d313630266865696768743d31363010011801f2020082030b08f8ddcab0032a03108d018a03003a011a403e50056801721e313639313734343639343831393738363933335f3730666e736b733666717801820103303b30880181e08bc5b9d3f4b917a20100a80101b00114"))
+                            gg = EncryptFF(f"0811121a08{enc_client_id}10011804203e2a011a400548015203303b306814")
+                            five.send(bytes.fromhex("051500000020"+gg))
+
+
+                        if '1200' in dataS.hex()[0:4] and b'-+' in dataS and command == True:
+                                    if b"***" in dataS:
+                                        dataS = dataS.replace(b"***",b"106")
+                                    print("enteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer")
+                                    newdataS2 = dataS.hex()
+                                    text = str(bytes.fromhex(newdataS2))
+                                    match = re.search(r'\-\+(.*?)\(', text)
+                                    number = match .group(1)
+                                    print(number)
+                                    target_id = convert_id(str(number))
+                                    pay = f"080112090a05{target_id}1001"
+                                    new_pay = "0f1500000010"+EncryptFF(pay)
+                                    five.send(bytes.fromhex(new_pay))
+                                    threading.Thread(target=enter_to).start()
+
+
+                        if "1200" in dataS.hex()[0:4] and b"/r" in dataS and 420 > len(dataS.hex()) > 350 and command == True:
+                            start_marker = b'/r'
+                            end_marker = b'('
+                            start_index = dataS.find(start_marker) + len(start_marker)
+                            end_index = dataS.find(end_marker, start_index)
+                            value_bytes = dataS[start_index:end_index]
+                            value = value_bytes.decode('utf-8')
+                            if len(value) == 7:
+                                print(value)
+                                room_id = convert_id(value)                 
+                                cw.send(bytes.fromhex(f"0e0000029208{enc_client_id}100e20052a85050aae0108{enc_client_id}10{enc_client_id}1a0f42595445e385a4424f54e385a45633206430014a0f010407090a0b120d0f16191a1e20235801600168e8077001800181d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414163485474644e756868595a377936422d5a45726b77536d686758383651626b4170316f53414b31384e376c5836423d7339362d6310011801ba0102080112d10308{room_id}12134d4f48414d4544e385a44259544520d8bad8b118d3b1b0b91c2001280f3802401e52033535355ab70108{enc_client_id}1aae0108{enc_client_id}10{enc_client_id}1a0f42595445e385a4424f54e385a45633206430014a0f010407090a0b120d0f16191a1e20235801600168e8077001800181d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414163485474644e756868595a377936422d5a45726b77536d686758383651626b4170316f53414b31384e376c5836423d7339362d6310011801ba010208015abc0108d3b1b0b91c1ab30108d3b1b0b91c10d3b1b0b91c1a0e4d4f48414d4544e385a442595445206428a7f48fae0330014a0f010407090a0b120d0f16191a1e202358016001688b0870037806800182d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f4141634854746372366e6753636c6d446839554d4c7878374c67725a387235555333594258357936316a4437686c4e5a3d7339362d6310011801ba01006801700178019001c092d1519801c8c89005da0100e80101f00101f80180d08d81b9f58cbd178202020101"))
+
+
+                        if cmode == True and cmodeinfo==True:
+                            cmodeloop = True
+                            cmodeinfo = False
+                            threading.Thread(target=crazymode,args=(team,packett1,packett)).start()
+
+                        if cmode == False:
+                            cmodeloop = False
+                            cmodeinfo = True
+
+
+
+                        if '1200' in dataS.hex()[0:4] and b'GroupID' in dataS and packet0300 == True  :
+                                from time import sleep
+                                lis = [p1,p2,p3,p4,p5,xmoodz]
+                                for msg in lis:
+                                    remote.send(msg)
+                                    sleep(0.3)
+
+                                packet0300 = False
+
+                        if b"/sss" in dataS and "1215" in dataC.hex()[0:4] and command == True:
+                            print("Start_game")
+                            pay = f"080112090a05{enc_client_id}1001"
+                            new_pay = "0f1500000010"+EncryptFF(pay)
+                            five.send(bytes.fromhex(new_pay))
+                            threading.Thread(target=start_game).start()
+
+
+
+                        if  port == 39699:
+                            invite = client
+                            snv = remote
+
+
+                        if startspammsg == True:     #/spam
+                           recordmode = True
+
+                        if idinfo == False and command == True:
+                                print("Sending info")
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[00FF00][b][c]جـلـب مـعـلـومـات الحساب ..",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]الأيدي : ",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{number}",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]الإسـم : ",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{getname(number)}",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]السيرفـر : ",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{getreg(number)}",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]حالـة الحسـاب : ",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[ff5722][b][c]{get_status(number)}",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"[76ff03][b][c] تـاريخ الإنشـاء : ",newdataS2)))
+                                getin.send(bytes.fromhex(gen_msgv2_clan(f"{getdate(number)}",newdataS2)))
+                                idinfo = True
+
+                        if b"/start" in dataS:
+                            command = True
+
+                        if startspammsg == False: #/f
+                            statues = False
+
+                        if '0e00' in dataS.hex()[0:4]:
+                           for i in range(10):
+                               pattern = fr"x0{str(i)}(\d+)Z"
+                               match = re.search(pattern, str(dataS))
+                               if match:
+                                   number = match.group(1)
+                                   roomp = True
+                                   if number != defult_value:
+                                        print("Done Catch packet")
+                                        invvs = client
+                                        invvspacket = dataS
+                                        defult_value = number
+
+                                   break
+                           if match:
+                               pass
+                           else:
+                               if "OPENATTRIBUTESEXT" in str(dataS):
+                                    pass
+
+                        if  '0500' in dataS.hex()[0:4] and hide == True :
+                            if len(dataS.hex())<=30:
+                                hide = True
+                            if len(dataS.hex())>=100:
+                                packet1 = dataS
+                                hidd = client
+                                hide = False
+
+                        if b"/ref" in dataS and "1200" in dataS.hex()[0:4] and 430 > len(dataS.hex()) > 200 and command == True:
+
+                                print("Done Send Packet ..")
+                                invvs.send(invvspacket)
+
+
+
+
+                        if b"/rec" in dataS and '1200' in dataS.hex()[0:4]:
+                            remote.send(b'\x05\x03\x00\x00')
+
+
+                        if '1200' in dataS.hex()[0:4] and b'/f' in dataS and command == True:
+                                if b"***" in dataS:
+                                    dataS = dataS.replace(b"***",b"106")
+                                start_marker = b'/f'
+                                end_marker = b'('
+                                start_index = dataS.find(start_marker) + len(start_marker)
+                                end_index = dataS.find(end_marker, start_index)
+                                value_bytes = dataS[start_index:end_index]
+                                number = value_bytes.decode('utf-8')
+                                target_id = convert_id(str(number))
+                                BNS = ["b2dd8dae03","b1dd8dae03","bfdc8dae03"]
+                                probabilities = [3.3333, 3.3333, 3.3333]
+                                B_N = random.choices(BNS, probabilities)[0]
+                                if len(target_id) == 8:
+                                    cw.send(bytes.fromhex(f"060000007708d4d7faba1d100620022a6b08{target_id}1a1b5b3030666666665d42595445202020424f542e5b3030666666665d32024d454049b00101b801e807d801d4d8d0ad03e001{B_N}ea011eefbca8efbca5efbcb2efbcafefbcb3efbca8efbca9efbcadefbca1efa3bf8002fd98a8dd03900201d00201"))
+
+                                if len(target_id) > 8:
+                                    print("Add Frind")
+                                    cw.send(bytes.fromhex(f"060000006808d4d7faba1d100620022a5c08{target_id}1a1b5b3030464646465d42595445e385a4424f542e5b3030464646465d32024d45404db00113b801a528d801d4d8d0ad03e001{B_N}f00101f8019a018002fd98a8dd03900201d0020cd8022ee002b2e9f7b103"))
+
+
+
+                        if '1200' in dataS.hex()[0:4] and b'/+' in dataS and idinfo == True and command == True:
+
+                                start_marker = b'/+'
+                                end_marker = b'('
+                                start_index = dataS.find(start_marker) + len(start_marker)
+                                end_index = dataS.find(end_marker, start_index)
+                                value_bytes = dataS[start_index:end_index]
+                                number = value_bytes.decode('utf-8')
+                                newdataS2 = dataS.hex()
+                                getin = client          
+                                print(number)
+                                idinfo = False
+
+                        if add_yout == True:
+                            add_yout = False
+                            from time import sleep
+
+                            for h in yout_list:
+                                    invite.send(h)
+                                    sleep(0.2)
+
+
+
+                        if b'/ret' in dataS and '1200' in dataS.hex()[0:4]:
+                               clieee.send(lag)
+                           
+                        if client.send(dataS) <= 0:
+                            break
 
 def startt():
     try:
         threading.Thread(target=sayhello).start()
-        Proxy().runs('127.0.0.1',1080)
+        Proxy().runs('192.168.1.31',1081)
     except Exception as e:
             print(e)
