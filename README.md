@@ -1031,6 +1031,7 @@ class Proxy:
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] تدمير فريقㅤ\n\n-ِِ-ِid\n\n[ff00ff]لازم تكون صولو",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] دخـول سكواد غير مرئي\n\n-ِ+id",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] دخـول سكواد ظـاهر\n\n+ِ+ِid",dataS.hex())))
+                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] دخول روم\n\n/ِrid\n\nid الروم",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]جلب معلومات عن لاعب\n\n/ِ+id",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]رجوع للروم لو حد طردك\n\n/rِet",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]رجوع للروم مخفي لما تنطرد\n\n/rِef",dataS.hex())))
