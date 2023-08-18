@@ -1026,6 +1026,6 @@ class Proxy:
 def startt():
     try:
         threading.Thread(target=sayhello).start()
-        Proxy().runs('192.168.1.31',1081)
+        Proxy().runs('127.0.0.1',1080)
     except Exception as e:
             print(e)
