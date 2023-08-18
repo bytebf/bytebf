@@ -929,9 +929,6 @@ class Proxy:
                                 getin.send(bytes.fromhex(gen_msgv2_clan(f"{getdate(number)}",newdataS2)))
                                 idinfo = True
 
-                        if b"/start" in dataS:
-                            command = True
-
                         if startspammsg == False: #/f
                             statues = False
 
