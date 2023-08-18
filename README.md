@@ -305,8 +305,6 @@ def sendi():
             for i in range(400):
                 snv.send(dataC)
                 for k in range(1):
-                    time.sleep(0.001)
-
             break
 
 ###
