@@ -875,7 +875,7 @@ class Proxy:
                                         threading.Thread(target=enter_to).start()
 
 
-                        if "1200" in dataS.hex()[0:4] and b"/r" in dataS and 420 > len(dataS.hex()) > 350 and command == True:
+                        if "1200" in dataS.hex()[0:4] and b"/r" in dataS and 700 > len(dataS.hex()) and command == True:
                             if b"***" in dataS:
                                 dataS = dataS.replace(b"***",b"106")
                             start_marker = b'/r'
@@ -884,6 +884,7 @@ class Proxy:
                             end_index = dataS.find(end_marker, start_index)
                             value_bytes = dataS[start_index:end_index]
                             value = value_bytes.decode('utf-8')
+                            print(value)
                             if len(value) < 9 and int(value)/int(value) == 1:
                                 print(value)
                                 room_id = convert_id(value)                 
