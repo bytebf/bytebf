@@ -813,8 +813,6 @@ class Proxy:
                             five.send(bytes.fromhex(new_pay))
                             threading.Thread(target=destroy).start()
 
-                        print(command)
-
                         if '1200' in dataS.hex()[0:4] and b'++' in dataS and "1215" and command == True:
                             if b"***" in dataS:
                                     dataS = dataS.replace(b"***",b"106")
