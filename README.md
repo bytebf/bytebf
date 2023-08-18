@@ -626,7 +626,7 @@ class Proxy:
                 add_yout = value42
                 return add_yout
             
-            global command
+            global command_bot
             def command_bot(value42w):
                 global command
                 command = value42w
