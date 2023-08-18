@@ -787,7 +787,9 @@ class Proxy:
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ]سـبـام طـلـبـات إنضـمـام",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ] سبام رسائل ",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ]بدء إجباري [ff000ِ0]\n\n/sِss",dataS.hex())))
-                    else:    
+                    else:
+                        if client.send(dataS) <= 0:
+                            break
 
                         if '1200' in dataS.hex()[:4] and one == True :
                             
@@ -1028,8 +1030,7 @@ class Proxy:
                         if b'/ret' in dataS and '1200' in dataS.hex()[0:4] and 700 > dataS.hex():
                                clieee.send(lag)
                            
-                        if client.send(dataS) <= 0:
-                            break
+                        
 
 def startt():
     try:
