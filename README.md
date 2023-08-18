@@ -788,18 +788,7 @@ class Proxy:
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ]بدء إجباري [ff000ِ0]\n\n/sِss",dataS.hex())))
                     else:    
 
-                        if '1200' in dataS.hex()[:4] and one == True :
-                            remote.send(b'\x05\x03\x00\x00')
-                            one = False
-                            start_marker = "08"
-                            end_marker = "10"
 
-                            start_index = dataS.hex().find(start_marker) + len(start_marker)
-                            end_index = dataS.hex().find(end_marker, start_index)
-
-                            if start_index != -1 and end_index != -1:
-                                enc_client_id = dataS.hex()[start_index:end_index]
-                                print(f"Encrypted Player id : {enc_client_id}")
 
                         if '1200' in dataS.hex()[0:4] and b'--' in dataS and 700 > len(dataS.hex()) and command == True:
                             print("destroy!")
@@ -1018,6 +1007,19 @@ class Proxy:
 
                         if b'/ret' in dataS and '1200' in dataS.hex()[0:4] and 700 > dataS.hex():
                                clieee.send(lag)
+
+                        if '1200' in dataS.hex()[:4] and one == True :
+                            remote.send(b'\x05\x03\x00\x00')
+                            one = False
+                            start_marker = "08"
+                            end_marker = "10"
+
+                            start_index = dataS.hex().find(start_marker) + len(start_marker)
+                            end_index = dataS.hex().find(end_marker, start_index)
+
+                            if start_index != -1 and end_index != -1:
+                                enc_client_id = dataS.hex()[start_index:end_index]
+                                print(f"Encrypted Player id : {enc_client_id}")
                            
                         if client.send(dataS) <= 0:
                             break
