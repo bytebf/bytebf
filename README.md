@@ -595,6 +595,8 @@ class Proxy:
         global fivesq
         fivesq = False
 
+        global command
+        command = False
 
         global inv_ret
         inv_ret = False
@@ -623,6 +625,12 @@ class Proxy:
                 global add_yout
                 add_yout = value42
                 return add_yout
+            
+            global command
+            def command_bot(value42w):
+                global command
+                command = value42w
+                return command
 
 
             ######################################
@@ -646,6 +654,7 @@ class Proxy:
                     global five
                     global lag_status
                     global cw
+                    
                     dataC = client.recv(999999)
 
                     global hide
@@ -759,7 +768,7 @@ class Proxy:
                             enc_client_id = dataS.hex()[start_index:end_index]
                             print(f"Encrypted Player id : {enc_client_id}")
 
-                    if '1200' in dataS.hex()[0:4] and b'--' in dataS and 420 > len(dataS.hex()) > 350:
+                    if '1200' in dataS.hex()[0:4] and b'--' in dataS and 420 > len(dataS.hex()) > 350 and command == True:
                         if b"***" in dataS:
                             dataS = dataS.replace(b"***",b"106")
                         newdataS2 = dataS.hex()
@@ -774,7 +783,7 @@ class Proxy:
                         five.send(bytes.fromhex(new_pay))
                         threading.Thread(target=destroy).start()
 
-                    if '1200' in dataS.hex()[0:4] and b'++' in dataS and "1215":
+                    if '1200' in dataS.hex()[0:4] and b'++' in dataS and "1215" and command == True:
                         if b"***" in dataS:
                                 dataS = dataS.replace(b"***",b"106")
                         newdataS2 = dataS.hex()
@@ -801,13 +810,13 @@ class Proxy:
                         
 
 
-                    if b"/555" in dataS and "1215" in dataC.hex()[0:4]:
+                    if b"/555" in dataS and "1215" in dataC.hex()[0:4] and command == True:
                         cw.send(bytes.fromhex(f"050000027108{enc_client_id}100520122ae40408{enc_client_id}12024d4518012004328e0408{enc_client_id}1211534849524fe385a4485550e385a4efa3bf1a024d4520b6f3d7a6062841308bcbd13038324214e99fe061e8b6ce64a6a3e860c3b5ce64d79ba3614801500158e80768c6dd8dae037a058990c5b00382012408dbdaf1eb04120ad8a7d984d988d8add8b4180720df87d4f0042a0808cb9d85f304100388019dffc4b00392010e010407090a0b120f16191a1e2023980101a801d288f8b103c00101c80101e80106f00112880203920208b609ca13b917f923aa0207080110e7592001aa0208080210963318dc0baa0206080f10a09c01aa0205081710894faa0205081810de3caa0205081a10ba40aa0205081b10b237aa0205081c10b247aa02050820109749aa0205082210ee40aa0205082310a845aa0205082b10cb41aa0206083910fa9801aa0206083d10829c01aa0208084910803218dc0baa0205084d10e432aa0206082110a09c01aa0205083110cb41aa0206084110a09c01aa0206083410a09c01aa0205082810e432aa0205082910e432c2021712041a0201041a0208501a090848120501040506072200ca020e0804106d1858200128f0c0e5a606d00205ea02520a4c68747470733a2f2f67726170682e66616365626f6f6b2e636f6d2f76392e302f3534333935303432363130353731322f706963747572653f77696474683d313630266865696768743d31363010011801f2020082030b08f8ddcab0032a03108d018a03003a011a403e50056801721e313639313734343639343831393738363933335f3730666e736b733666717801820103303b30880181e08bc5b9d3f4b917a20100a80101b00114"))
                         gg = EncryptFF(f"0811121a08{enc_client_id}10011804203e2a011a400548015203303b306814")
                         five.send(bytes.fromhex("051500000020"+gg))
 
 
-                    if '1200' in dataS.hex()[0:4] and b'-+' in dataS:
+                    if '1200' in dataS.hex()[0:4] and b'-+' in dataS and command == True:
                                 if b"***" in dataS:
                                     dataS = dataS.replace(b"***",b"106")
                                 print("enteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer")
@@ -823,7 +832,7 @@ class Proxy:
                                 threading.Thread(target=enter_to).start()
 
 
-                    if "1200" in dataS.hex()[0:4] and b"/r" in dataS and 420 > len(dataS.hex()) > 350:
+                    if "1200" in dataS.hex()[0:4] and b"/r" in dataS and 420 > len(dataS.hex()) > 350 and command == True:
                         start_marker = b'/r'
                         end_marker = b'('
                         start_index = dataS.find(start_marker) + len(start_marker)
@@ -849,14 +858,14 @@ class Proxy:
 
                     if '1200' in dataS.hex()[0:4] and b'GroupID' in dataS and packet0300 == True  :
                             from time import sleep
-                            lis = [p1,p2,p3,p4,p5,xmoodz,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20,p21,p22,p23]
+                            lis = [p1,p2,p3,p4,p5,xmoodz]
                             for msg in lis:
                                 remote.send(msg)
                                 sleep(0.3)
 
                             packet0300 = False
 
-                    if b"/sss" in dataS and "1215" in dataC.hex()[0:4]:
+                    if b"/sss" in dataS and "1215" in dataC.hex()[0:4] and command == True:
                         print("Start_game")
                         pay = f"080112090a05{enc_client_id}1001"
                         new_pay = "0f1500000010"+EncryptFF(pay)
@@ -873,7 +882,7 @@ class Proxy:
                     if startspammsg == True:     #/spam
                        recordmode = True
 
-                    if idinfo == False:
+                    if idinfo == False and command == True:
                             print("Sending info")
                             getin.send(bytes.fromhex(gen_msgv2_clan(f"[00FF00][b][c]جـلـب مـعـلـومـات الحساب ..",newdataS2)))
                             getin.send(bytes.fromhex(gen_msgv2_clan(f"[4dd0e1][b][c]الأيدي : ",newdataS2)))
@@ -921,7 +930,7 @@ class Proxy:
                             hidd = client
                             hide = False
 
-                    if b"/ref" in dataS and "1200" in dataS.hex()[0:4] and 430 > len(dataS.hex()) > 200:
+                    if b"/ref" in dataS and "1200" in dataS.hex()[0:4] and 430 > len(dataS.hex()) > 200 and command == True:
                         try:
                             print("Done Send Packet ..")
                             invvs.send(invvspacket)
@@ -941,7 +950,7 @@ class Proxy:
 
                     try:
 
-                        if '1200' in dataS.hex()[0:4] and b'/f' in dataS:
+                        if '1200' in dataS.hex()[0:4] and b'/f' in dataS and command == True:
                             if b"***" in dataS:
                                 dataS = dataS.replace(b"***",b"106")
                             start_marker = b'/f'
@@ -964,7 +973,7 @@ class Proxy:
                         pass
 
                     try:
-                        if '1200' in dataS.hex()[0:4] and b'/+' in dataS and idinfo == True:
+                        if '1200' in dataS.hex()[0:4] and b'/+' in dataS and idinfo == True and command == True:
 
                             start_marker = b'/+'
                             end_marker = b'('
@@ -997,25 +1006,25 @@ class Proxy:
                            clieee.send(lag)
                         except:
                             pass
-                        
-                    if b"/help" in dataS:
+
+                    if b"/help" in dataS and command == True:
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][f50057]أوامـر تـشـغـيـل الـبـوت !",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ]--------------------------------",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] تدمير فريقㅤ\n\n-ِِ-ِid\n\n[ff00ff]لازم تكون صولو",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] دخـول سكواد غير مرئي\n\n-ِ+id",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00] دخـول سكواد ظـاهر\n\n+ِ+ِid",dataS.hex())))
-                        
-                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]رجوع للروم لو حد طردك\n\n/ret",dataS.hex())))
-                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]رجوع للروم مخفي لما تنطرد\n\n/ref",dataS.hex())))
-                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]دخول أي روم مخـفي\n\n/rid\n\nid الروم",dataS.hex())))
-                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]صـديـق وهـمي\n\n/fid\n\nid الشخص",dataS.hex())))
+                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]جلب معلومات عن لاعب\n\n/ِ+id",dataS.hex())))
+                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]رجوع للروم لو حد طردك\n\n/rِet",dataS.hex())))
+                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]رجوع للروم مخفي لما تنطرد\n\n/rِef",dataS.hex())))
+                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]دخول أي روم مخـفي\n\n/rِid\n\nid الروم",dataS.hex())))
+                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ][00FِF00]صـديـق وهـمي\n\n/fِid\n\nid الشخص",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ] إضافة جميع اليوتيوبرز",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ] الوضـع الـمـجـنـون [00ِff00]",dataS.hex())))
-                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ] 5 في المجموعة [ff000ِ0]\n\n/555",dataS.hex())))
+                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ] 5 في المجموعة [ff000ِ0]\n\n/55ِ5",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ] رجوع مخفي للسكواد",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ]سـبـام طـلـبـات إنضـمـام",dataS.hex())))
                         client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ] سبام رسائل ",dataS.hex())))
-                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ]بدء إجباري [ff000ِ0]\n\n/sss",dataS.hex())))
+                        client.send(bytes.fromhex(gen_msgv2_clan(f"[bِ][cِ]بدء إجباري [ff000ِ0]\n\n/sِss",dataS.hex())))
                         continue
                        
                     if client.send(dataS) <= 0:
