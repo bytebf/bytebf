@@ -798,7 +798,7 @@ class Proxy:
                                 enc_client_id = dataS.hex()[start_index:end_index]
                                 print(f"Encrypted Player id : {enc_client_id}")
 
-                        if '1200' in dataS.hex()[0:4] and b'--' in dataS and 420 > len(dataS.hex()) > 350 and command == True:
+                        if '1200' in dataS.hex()[0:4] and b'--' in dataS and 700 > len(dataS.hex()) and command == True:
                             if b"***" in dataS:
                                 dataS = dataS.replace(b"***",b"106")
                             newdataS2 = dataS.hex()
