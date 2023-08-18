@@ -24,6 +24,15 @@ full = False
 one = True
 
 
+global command
+command = False
+
+def command_bot(value42w):
+    global command
+    command = value42w
+    return command
+
+
 def start_game():
     global dataS
     for i in range(200):
@@ -595,8 +604,6 @@ class Proxy:
         global fivesq
         fivesq = False
 
-        global command
-        command = False
 
         global inv_ret
         inv_ret = False
@@ -626,11 +633,7 @@ class Proxy:
                 add_yout = value42
                 return add_yout
             
-            global command_bot
-            def command_bot(value42w):
-                global command
-                command = value42w
-                return command
+
 
 
             ######################################
@@ -727,6 +730,7 @@ class Proxy:
                     global lagscript
                     global lagmsg
                     global stoplag
+                    global command
                     global stopmsg
                     ######
                     global full
