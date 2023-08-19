@@ -24,7 +24,7 @@ full = False
 one = True
 
 
-white_list = {"f7c0ddf705",""}
+white_list = {"sdfwerfwefsd",""} #f7c0ddf705
 
 
 SERVER_HOST = '140.150.224.42'
