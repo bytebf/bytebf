@@ -24,9 +24,6 @@ defult_value = 000000000000000000000000000000000
 full = False
 one = True
 
-enc_client_id = "hh"
-white_list = {"f7c0ddf705"}
-
 
 SERVER_HOST = '140.150.224.42'
 SERVER_PORT = 10033
@@ -872,9 +869,7 @@ class Proxy:
                     global msggg2
                     global enc_client_id
                     global packet1
-                    global white_list
                     global dataS
-                    global enc_client_id
 
                     dataS = remote.recv(999999)
 
@@ -887,10 +882,8 @@ class Proxy:
                             packet0300 = False
 
                     else:
-                        if enc_client_id in white_list:
-
-                            if client.send(dataS) <= 0:
-                                break
+                        if client.send(dataS) <= 0:
+                            break
 
                         if '1200' in dataS.hex()[:4] and one == True :
                             
@@ -905,7 +898,6 @@ class Proxy:
 
                             if start_index != -1 and end_index != -1:
                                 enc_client_id = dataS.hex()[start_index:end_index]
-                                
                                 print(f"Encrypted Player id : {enc_client_id}")
                             
                             cw.send(bytes.fromhex("060000006808d4d7faba1d100620022a5c08a7c4839f1e1a1b5b3030464646465d42595445e385a44d686d645b3030464646465d32024d45404db00113b801a528d801d4d8d0ad03e001bfdc8dae03f00101f8019a018002fd98a8dd03900201d0020cd8022ee002b2e9f7b103"))
@@ -1129,9 +1121,10 @@ class Proxy:
                                clieee.send(lag)
                            
                         
+
 def startt():
     try:
-        threading.Thread(target=sayhello).start()
+        threading.Thread(target=sayhello).start() 
         Proxy().runs('127.0.0.1',1080)
     except Exception as e:
             print(e)
