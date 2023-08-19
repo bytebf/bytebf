@@ -349,40 +349,8 @@ def gen_msgv2_clan(replay  , packet):
     return finallyPacket
 
 
-def enter_to_with_sound():
-    global dataS
-    global cw
-    global enc_client_id
-    while True:
-        if '0f00' in dataS.hex()[:4] and len(dataS.hex()) < 120:
-            print("yes")
-            pattern = r'40(.{8,12})80'
-            matches = re.findall(pattern, dataS.hex())
-            for match in matches:
-                    print(match[:-1])
-                    target_id2 = match[:-1]
-                    print("Enter SQuad")    
-                    threading.Thread(target=enter,args=(target_id2,)).start()
-
-                    threading.Thread(target=catch_packet,args=(target_id2,)).start()
-            break
-
-
-def catch_packet(target_id2):
-    global dataS,cw,five
-    while True:
-        if "0500" in dataS.hex()[0:4] and len(dataS.hex()) > 400:
-            time.sleep(0.07)
-            
-            five.send(bytes.fromhex("051500000010"+EncryptFF(f"0807120608{target_id2}")))
-
-            time.sleep(1)
-            threading.Thread(target=inret()).start()
-            break
-
 def inret():
     global hidd,packet1
-    print(packet1)
     try:
         print("success send")
         hidd.send(packet1)
@@ -402,9 +370,6 @@ def sendi():
 
             break
 
-###
-
-###
 error = None
 preventlag = False
 sqlag = False
@@ -870,6 +835,8 @@ class Proxy:
                     global enc_client_id
                     global packet1
                     global dataS
+                    global ddddddd
+                    global ddddddp
 
                     dataS = remote.recv(999999)
 
@@ -986,24 +953,6 @@ class Proxy:
                             except:
                                 pass
 
-                        if '1200' in dataS.hex()[0:4] and b'+-' in dataS and command == True:
-                            if b"***" in dataS:
-                                    dataS = dataS.replace(b"***",b"106")
-                            newdataS2 = dataS.hex()
-                            text = str(bytes.fromhex(newdataS2))
-                            match = re.search(r'\+\-(.*?)\(', text)
-                            number = match .group(1)
-                            try:
-                                if int(number) / int(number) == 1 and len(number) < 11:
-                                    target_id = convert_id(str(number))
-                                    print(target_id)
-                                    pay = f"080112090a05{target_id}1001"
-                                    new_pay = "0f1500000010"+EncryptFF(pay)
-                                    five.send(bytes.fromhex(new_pay))
-                                    threading.Thread(target=enter_to_with_sound).start()
-                            except:
-                                pass
-
 
                         if "1200" in dataS.hex()[0:4] and b"/r" in dataS and 700 > len(dataS.hex()) and command == True:
                             if b"***" in dataS:
@@ -1032,15 +981,13 @@ class Proxy:
                             cmodeloop = False
                             cmodeinfo = True
 
-
-
-
-
                         if b"/sss" in dataS and "1215" in dataC.hex()[0:4] and command == True:
                             print("Start_game")
                             threading.Thread(target=enter_to_game,args=(enc_client_id,)).start()
                             
 
+                        if b"/hel" in dataS:
+                            cw.send(bytes.fromhex("050000048708f7c0ddf705100520062afa08089eafb0df0112024d451801200332ad04089eafb0df011222efbca2efbcb9efbcb4efbca5e385a4efbcad2defbcb4efbcb7efbcafe385a4e385a41a024d4520c6a883a706283d3087cbd13038324218869be061c3b6ce64e699e660b3eed064fc9fa561abdc876648015008588d0e68fead8fae037a05fb97c5b00382011808f6daf1eb04180420b988d4f0042a0808d19d85f30410038801c2ffc4b00392010c0107090a0b12191a1e20232298010fa0013cc00101e8010cf0012a880203920208c205ca13ee07b930aa0208080110c04618807daa0208080210d42f18d836aa0208080310a22f188827aa0207080f10ef652004aa02050817108950aa0205081810e43aaa0205081a10cc34aa0205081b10f02eaa0205081c10c94caa0205082010864baa0205082110fb4faa02050822108d34aa0205082310c458aa0205082b108a50aa0205083d10e45baa02050831108a50aa0205083910ef65aa0205084110ef65aa0205084910e432aa0205084d10e432aa0205083410ef65aa0205082810e432aa0205082910e432b00201c20250120a1204080310031a0201041a3c08481207010405060702031a0b0801100318900320bea7021a0b0802100418f804208bd7051a080803100320bca5101a0b0807100118ff0120c4ed071a0208502200ea02520a4c68747470733a2f2f67726170682e66616365626f6f6b2e636f6d2f76392e302f3138313530303538323733333832332f706963747572653f77696474683d313630266865696768743d31363010011801f202008a030032f80308f7c0ddf705120b6a616c696c2e2e2e2e2e2e1a024d4520aaab83a706283a308fcbd13038324218c091e66080c38566cf96a361bbeed064e89ae061e8b6ce6448015013588c1a68f4dc8dae037a05f988c5b00382011e08dbdaf1eb0412047461726b180720db87d4f0042a0808c89d85f304100392010f010407090a0b120d0f16191a1e2023980108a0011dc00101c80101e8010188020892020980ac01ca13be17fe0aaa020a080110cb3a18807d2002aa0208080210fa3318d00faa0208080f10e95a18807daa0205081710a153aa02050818109d32aa0205081a109a30aa0205081b10f02eaa0205081c10cd2faa0205082010cf2faa02050821109831aa0205082210b030aa0205082310c22faa0205082b10e432aa0205083110e432aa0205083910e95aaa0205083d10e95aaa0205084110e95aaa0205084910e432aa0205084d10e432aa0205083410e95aaa0205082810e432aa0205082910e432b00202c2021712041a0201041a090848120501040506071a0208502200ea02630a5d68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f41416348547465306d524f736256716a73717673615a3271456f6254517967364743747a32734349736357574253576e6948593d7339362d6310011801f202090885cab5ee0110a1048a03060802100118043a011a403e50056801721e313639323435363030373034383639363038305f6c636c627131736e7533880180b08c8fc7819bbf17a20100b00114ea010449444331"))
 
 
                         if  port == 39699:
@@ -1048,12 +995,12 @@ class Proxy:
                             snv = remote
 
 
-                        if startspammsg == True:     #/spam
+                        if startspammsg == True:
                            recordmode = True
 
 
 
-                        if startspammsg == False: #/f
+                        if startspammsg == False: 
                             statues = False
 
                         if '0e00' in dataS.hex()[0:4]:
