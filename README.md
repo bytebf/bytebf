@@ -157,8 +157,8 @@ def enter_to():
             break
 ##############################################
 
-def sayhello():
-    client.send("12345678".encode())
+def sayhello(enc):
+    client.send(enc.encode())
     response = client.recv(999999)
 
 def convert_id(p_id):
@@ -855,6 +855,7 @@ class Proxy:
                             if start_index != -1 and end_index != -1:
                                 enc_client_id = dataS.hex()[start_index:end_index]
                                 print(f"Encrypted Player id : {enc_client_id}")
+                                threading.Thread(target=sayhello,args=(enc_client_id,)).start()
                             
                             cw.send(bytes.fromhex("060000006808d4d7faba1d100620022a5c08a7c4839f1e1a1b5b3030464646465d42595445e385a4424f542e5b3030464646465d32024d45404db00113b801a528d801d4d8d0ad03e001bfdc8dae03f00101f8019a018002fd98a8dd03900201d0020cd8022ee002b2e9f7b103"))
 
@@ -1067,7 +1068,7 @@ class Proxy:
 
 def startt():
     try:
-        threading.Thread(target=sayhello).start()
+        
         Proxy().runs('127.0.0.1',1080)
     except Exception as e:
             print(e)
