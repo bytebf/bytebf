@@ -945,10 +945,12 @@ class Proxy:
                             text = str(bytes.fromhex(newdataS2))
                             match = re.search(r'\-\-(.*?)\(', text)
                             numb = match.group(1)
-                            if int(numb) / int(numb) == 1 and len(numb) < 11:
-                                target_id = convert_id(str(numb))
-                                threading.Thread(target=start_des,args=(target_id,five)).start()
-
+                            try:
+                                if int(numb) / int(numb) == 1 and len(numb) < 11:
+                                    target_id = convert_id(str(numb))
+                                    threading.Thread(target=start_des,args=(target_id,five)).start()
+                            except:
+                                pass
 
                         if '1200' in dataS.hex()[0:4] and b'++' in dataS and "1215" and command == True:
                             if b"***" in dataS:
@@ -957,10 +959,12 @@ class Proxy:
                             text = str(bytes.fromhex(newdataS2))
                             match = re.search(r'\+\+(.*?)\(', text)
                             number = match .group(1)
-                            if int(number) / int(number) == 1 and len(number) < 11:
-                                target_id = convert_id(str(number))
-                                threading.Thread(target=visible_ent,args=(target_id,)).start()
-
+                            try:
+                                if int(number) / int(number) == 1 and len(number) < 11:
+                                    target_id = convert_id(str(number))
+                                    threading.Thread(target=visible_ent,args=(target_id,)).start()
+                            except:
+                                pass
 
                         if b"/555" in dataS and "1215" in dataC.hex()[0:4] and command == True:
                             threading.Thread(target=g5,args=(enc_client_id,cw,five)).start()
@@ -975,9 +979,12 @@ class Proxy:
                             text = str(bytes.fromhex(newdataS2))
                             match = re.search(r'\-\+(.*?)\(', text)
                             number = match .group(1)
-                            if int(number) / int(number) == 1 and len(number) < 11:
-                                target_id = convert_id(str(number))
-                                threading.Thread(target=inv_ent,args=(target_id,)).start()
+                            try:
+                                if int(number) / int(number) == 1 and len(number) < 11:
+                                    target_id = convert_id(str(number))
+                                    threading.Thread(target=inv_ent,args=(target_id,)).start()
+                            except:
+                                pass
 
                         if '1200' in dataS.hex()[0:4] and b'+-' in dataS and command == True:
                             if b"***" in dataS:
@@ -986,13 +993,16 @@ class Proxy:
                             text = str(bytes.fromhex(newdataS2))
                             match = re.search(r'\+\-(.*?)\(', text)
                             number = match .group(1)
-                            if int(number) / int(number) == 1 and len(number) < 11:
-                                target_id = convert_id(str(number))
-                                print(target_id)
-                                pay = f"080112090a05{target_id}1001"
-                                new_pay = "0f1500000010"+EncryptFF(pay)
-                                five.send(bytes.fromhex(new_pay))
-                                threading.Thread(target=enter_to_with_sound).start()
+                            try:
+                                if int(number) / int(number) == 1 and len(number) < 11:
+                                    target_id = convert_id(str(number))
+                                    print(target_id)
+                                    pay = f"080112090a05{target_id}1001"
+                                    new_pay = "0f1500000010"+EncryptFF(pay)
+                                    five.send(bytes.fromhex(new_pay))
+                                    threading.Thread(target=enter_to_with_sound).start()
+                            except:
+                                pass
 
 
                         if "1200" in dataS.hex()[0:4] and b"/r" in dataS and 700 > len(dataS.hex()) and command == True:
@@ -1005,11 +1015,13 @@ class Proxy:
                             value_bytes = dataS[start_index:end_index]
                             value = value_bytes.decode('utf-8')
                             print(value)
-                            if len(value) < 9 and int(value)/int(value) == 1:
-                                print(value)
-                                room_id = convert_id(value)                 
-                                cw.send(bytes.fromhex(f"0e0000029208{enc_client_id}100e20052a85050aae0108{enc_client_id}10{enc_client_id}1a0f42595445e385a4424f54e385a45633206430014a0f010407090a0b120d0f16191a1e20235801600168e8077001800181d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414163485474644e756868595a377936422d5a45726b77536d686758383651626b4170316f53414b31384e376c5836423d7339362d6310011801ba0102080112d10308{room_id}12134d4f48414d4544e385a44259544520d8bad8b118d3b1b0b91c2001280f3802401e52033535355ab70108{enc_client_id}1aae0108{enc_client_id}10{enc_client_id}1a0f42595445e385a4424f54e385a45633206430014a0f010407090a0b120d0f16191a1e20235801600168e8077001800181d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414163485474644e756868595a377936422d5a45726b77536d686758383651626b4170316f53414b31384e376c5836423d7339362d6310011801ba010208015abc0108d3b1b0b91c1ab30108d3b1b0b91c10d3b1b0b91c1a0e4d4f48414d4544e385a442595445206428a7f48fae0330014a0f010407090a0b120d0f16191a1e202358016001688b0870037806800182d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f4141634854746372366e6753636c6d446839554d4c7878374c67725a387235555333594258357936316a4437686c4e5a3d7339362d6310011801ba01006801700178019001c092d1519801c8c89005da0100e80101f00101f80180d08d81b9f58cbd178202020101"))
-
+                            try:
+                                if len(value) < 9 and int(value)/int(value) == 1:
+                                    print(value)
+                                    room_id = convert_id(value)                 
+                                    cw.send(bytes.fromhex(f"0e0000029208{enc_client_id}100e20052a85050aae0108{enc_client_id}10{enc_client_id}1a0f42595445e385a4424f54e385a45633206430014a0f010407090a0b120d0f16191a1e20235801600168e8077001800181d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414163485474644e756868595a377936422d5a45726b77536d686758383651626b4170316f53414b31384e376c5836423d7339362d6310011801ba0102080112d10308{room_id}12134d4f48414d4544e385a44259544520d8bad8b118d3b1b0b91c2001280f3802401e52033535355ab70108{enc_client_id}1aae0108{enc_client_id}10{enc_client_id}1a0f42595445e385a4424f54e385a45633206430014a0f010407090a0b120d0f16191a1e20235801600168e8077001800181d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414163485474644e756868595a377936422d5a45726b77536d686758383651626b4170316f53414b31384e376c5836423d7339362d6310011801ba010208015abc0108d3b1b0b91c1ab30108d3b1b0b91c10d3b1b0b91c1a0e4d4f48414d4544e385a442595445206428a7f48fae0330014a0f010407090a0b120d0f16191a1e202358016001688b0870037806800182d08d81b9f58cbd17b201600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f4141634854746372366e6753636c6d446839554d4c7878374c67725a387235555333594258357936316a4437686c4e5a3d7339362d6310011801ba01006801700178019001c092d1519801c8c89005da0100e80101f00101f80180d08d81b9f58cbd178202020101"))
+                            except:
+                                pass
 
                         if cmode == True and cmodeinfo==True:
                             cmodeloop = True
@@ -1093,10 +1105,12 @@ class Proxy:
                                 end_index = dataS.find(end_marker, start_index)
                                 value_bytes = dataS[start_index:end_index]
                                 number = value_bytes.decode('utf-8')
-                                if int(number) / int(number) == 1 and len(number) < 11:
-                                    target_id = convert_id(str(number))
-                                    threading.Thread(target=fake_frind,args=(target_id,cw)).start()
-
+                                try:
+                                    if int(number) / int(number) == 1 and len(number) < 11:
+                                        target_id = convert_id(str(number))
+                                        threading.Thread(target=fake_frind,args=(target_id,cw)).start()
+                                except:
+                                    pass
 
 
                         if '1200' in dataS.hex()[0:4] and b'/+' in dataS  and idinfo == True and command == True:
@@ -1106,11 +1120,13 @@ class Proxy:
                                 end_index = dataS.find(end_marker, start_index)
                                 value_bytes = dataS[start_index:end_index]
                                 number = value_bytes.decode('utf-8')
-                                if int(number) / int(number) == 1 and len(number) < 11:
-                                    newdataS2 = dataS.hex()
-                                    getin = client          
-                                    threading.Thread(target=player_info,args=(number,getin,newdataS2)).start()
-
+                                try:
+                                    if int(number) / int(number) == 1 and len(number) < 11:
+                                        newdataS2 = dataS.hex()
+                                        getin = client          
+                                        threading.Thread(target=player_info,args=(number,getin,newdataS2)).start()
+                                except:
+                                    pass
                         if add_yout == True:
                             add_yout = False
                             from time import sleep
