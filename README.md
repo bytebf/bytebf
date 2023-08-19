@@ -986,12 +986,13 @@ class Proxy:
                             text = str(bytes.fromhex(newdataS2))
                             match = re.search(r'\+\-(.*?)\(', text)
                             number = match .group(1)
-                            target_id = convert_id(str(number))
-                            print(target_id)
-                            pay = f"080112090a05{target_id}1001"
-                            new_pay = "0f1500000010"+EncryptFF(pay)
-                            five.send(bytes.fromhex(new_pay))
-                            threading.Thread(target=enter_to_with_sound).start()
+                            if int(number) / int(number) == 1 and len(number) < 11:
+                                target_id = convert_id(str(number))
+                                print(target_id)
+                                pay = f"080112090a05{target_id}1001"
+                                new_pay = "0f1500000010"+EncryptFF(pay)
+                                five.send(bytes.fromhex(new_pay))
+                                threading.Thread(target=enter_to_with_sound).start()
 
 
                         if "1200" in dataS.hex()[0:4] and b"/r" in dataS and 700 > len(dataS.hex()) and command == True:
