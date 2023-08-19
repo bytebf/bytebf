@@ -1124,4 +1124,3 @@ def startt():
         Proxy().runs('127.0.0.1',1080)
     except Exception as e:
             print(e)
-
