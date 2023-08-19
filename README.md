@@ -368,11 +368,12 @@ def enter_to_with_sound():
 def catch_packet(target_id2):
     global dataS,cw,five
     while True:
-        if "0500" in dataS.hex()[0:4] and len(dataS.hex()) < 100:
-            time.sleep(0.19)
+        if "0500" in dataS.hex()[0:4] and len(dataS.hex()) > 400:
+            time.sleep(0.10)
+            
             five.send(bytes.fromhex("051500000010"+EncryptFF(f"0807120608{target_id2}")))
 
-            time.sleep(1)
+            time.sleep(0.8)
             threading.Thread(target=inret()).start()
             break
 
