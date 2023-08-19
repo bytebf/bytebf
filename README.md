@@ -369,7 +369,7 @@ def catch_packet(target_id2):
     global dataS,cw,five
     while True:
         if "0500" in dataS.hex()[0:4] and len(dataS.hex()) < 100:
-            time.sleep(0.17)
+            time.sleep(0.19)
             five.send(bytes.fromhex("051500000010"+EncryptFF(f"0807120608{target_id2}")))
 
             time.sleep(1)
