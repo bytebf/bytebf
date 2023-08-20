@@ -1038,7 +1038,8 @@ class Proxy:
 
 
                         if b"/rec" in dataS and '1200' in dataS.hex()[0:4]:
-                            remote.send(b'\x05\x03\x00\x00')
+                            remote.close()
+                            client.close()
 
                         if b"/startt" in dataS:
                             command = True
