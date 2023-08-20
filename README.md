@@ -32,6 +32,15 @@ client.connect((SERVER_HOST, SERVER_PORT))
 global command
 command = False
 
+def replay(cli,en_id,t):
+    BNR = "83db8dae03"
+    de_pa = f"12000000dd08{en_id}101220022ad00108{t}10{t}1802223a5b62d9905d5b63d9905d5b30306666d99030305dd8acd980d8a7d8b1d98a20d8afd8aed988d98420d8a7d984d8b3d983d988d8a7d8af202e2e2e28aefe88a7064a150a0b4259544520424f5420563310{BNR}2013520261726a630a5d68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f41416348547465306d524f736256716a73717673615a3271456f6254517967364743747a32734349736357574253576e6948593d7339362d6310011801"
+    cli.send(bytes.fromhex(de_pa))
+
+cli = None
+p = None
+t = None
+
 def command_bot(value42w):
     global command
     command = value42w
@@ -45,11 +54,17 @@ def youtubers(value42):
     add_yout = value42
     return add_yout
 
-def start_des(tar,five):
+def start_des(tar,five,cli,en_id,t):
+    BNR = "83db8dae03"
+    de_pa = f"12000000e908{en_id}101220022adc0108{t}10{t}180222465b62d9905d5b63d9905d5b6435303030d990305dd8acd980d8a7d8b1d98a20d8aad980d8afd985d980d98ad980d8b120d8a7d984d980d981d980d8b1d98ad980d982202e2e2e28a98889a7064a150a0b4259544520424f5420563310{BNR}2013520261726a630a5d68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f41416348547465306d524f736256716a73717673615a3271456f6254517967364743747a32734349736357574253576e6948593d7339362d6310011801"
+    cli.send(bytes.fromhex(de_pa))
     five.send(bytes.fromhex("0f1500000010"+EncryptFF(f"080112090a05{tar}1001")))
     threading.Thread(target=destroy).start()
 
-def inv_ent(tat_id):
+def inv_ent(tat_id,cli,en_id,t):
+    BNR = "83db8dae03"
+    de_pa = f"12000000db08{en_id}101220022ace0108{t}10{t}180222385b62d9905d5b63d9905d5b30306666d99030305dd8acd980d8a7d8b1d98a20d8a7d984d8afd8aed988d98420d985d8aed981d98a202e2e2e28ebac89a7064a150a0b4259544520424f5420563310{BNR}2013520261726a630a5d68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f41416348547465306d524f736256716a73717673615a3271456f6254517967364743747a32734349736357574253576e6948593d7339362d6310011801"
+    cli.send(bytes.fromhex(de_pa))
     pay = f"080112090a05{tat_id}1001"
     new_pay = "0f1500000010"+EncryptFF(pay)
     five.send(bytes.fromhex(new_pay))
@@ -75,7 +90,10 @@ def player_info(p_id,getin,newdataS2):
     getin.send(bytes.fromhex(gen_msgv2_clan(f"[76ff03][b][c] تـاريخ الإنشـاء : ",newdataS2)))
     getin.send(bytes.fromhex(gen_msgv2_clan(f"{getdate(p_id)}",newdataS2)))
 
-def fake_frind(target_id,cw):
+def fake_frind(target_id,cw,cli,en_id,t):
+    BNR = "83db8dae03"
+    de_pa = f"12000000f708{en_id}101220022aea0108{t}10{t}180222545b62d9905d5b63d9905d5b31386666d99066665dd8aad980d985d980d8aa20d8a7d984d8a5d8b6d980d8a7d981d980d980d8a920d983d98020d8b5d980d8afd98ad980d98220d988d987d980d985d980d98a202128af8c89a7064a150a0b4259544520424f5420563310{BNR}2013520261726a630a5d68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f41416348547465306d524f736256716a73717673615a3271456f6254517967364743747a32734349736357574253576e6948593d7339362d6310011801"
+    cli.send(bytes.fromhex(de_pa))
     BNS = ["b2dd8dae03","b1dd8dae03","bfdc8dae03"]
     probabilities = [3.3333, 3.3333, 3.3333]
     B_N = random.choices(BNS, probabilities)[0]
@@ -86,6 +104,16 @@ def fake_frind(target_id,cw):
         print("Add Frind")
         cw.send(bytes.fromhex(f"060000006808d4d7faba1d100620022a5c08{target_id}1a1b5b3030464646465d42595445e385a4424f542e5b3030464646465d32024d45404db00113b801a528d801d4d8d0ad03e001{B_N}f00101f8019a018002fd98a8dd03900201d0020cd8022ee002b2e9f7b103"))
 
+def internet_Error():
+    BNR = "83db8dae03"
+    de_pa = f"12000000ec08{enc_client_id}101220022adf0108{t}10{t}180222495b62d9905d5b63d9905d5b64636537d99037355dd985d8b4d980d983d980d984d8a920d981d98a20d8a5d8aad8b5d8a7d984d98320d8a8d8a7d984d8a5d986d8aad8b1d986d8aa202128b69389a7064a150a0b4259544520424f5420563310{BNR}2013520261726a630a5d68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f41416348547465306d524f736256716a73717673615a3271456f6254517967364743747a32734349736357574253576e6948593d7339362d6310011801"
+    cli.send(bytes.fromhex(de_pa))
+
+
+def des_end():
+    BNR = "83db8dae03"
+    de_pa = f"12000000e108{enc_client_id}101220022ad40108{t}10{t}1802223e5b62d9905d5b63d9905d5b3030666630d990305d20d8a5d986d980d8aad980d987d980d98920d8a7d984d980d8aad980d8afd985d980d98ad980d8b1202128e89a89a7064a150a0b4259544520424f5420563310{BNR}2013520261726a630a5d68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f41416348547465306d524f736256716a73717673615a3271456f6254517967364743747a32734349736357574253576e6948593d7339362d6310011801"
+    cli.send(bytes.fromhex(de_pa))
 
 def g5(enc_client_id,cw,five):
     cw.send(bytes.fromhex(f"050000027108{enc_client_id}100520122ae40408{enc_client_id}12024d4518012004328e0408{enc_client_id}1211534849524fe385a4485550e385a4efa3bf1a024d4520b6f3d7a6062841308bcbd13038324214e99fe061e8b6ce64a6a3e860c3b5ce64d79ba3614801500158e80768c6dd8dae037a058990c5b00382012408dbdaf1eb04120ad8a7d984d988d8add8b4180720df87d4f0042a0808cb9d85f304100388019dffc4b00392010e010407090a0b120f16191a1e2023980101a801d288f8b103c00101c80101e80106f00112880203920208b609ca13b917f923aa0207080110e7592001aa0208080210963318dc0baa0206080f10a09c01aa0205081710894faa0205081810de3caa0205081a10ba40aa0205081b10b237aa0205081c10b247aa02050820109749aa0205082210ee40aa0205082310a845aa0205082b10cb41aa0206083910fa9801aa0206083d10829c01aa0208084910803218dc0baa0205084d10e432aa0206082110a09c01aa0205083110cb41aa0206084110a09c01aa0206083410a09c01aa0205082810e432aa0205082910e432c2021712041a0201041a0208501a090848120501040506072200ca020e0804106d1858200128f0c0e5a606d00205ea02520a4c68747470733a2f2f67726170682e66616365626f6f6b2e636f6d2f76392e302f3534333935303432363130353731322f706963747572653f77696474683d313630266865696768743d31363010011801f2020082030b08f8ddcab0032a03108d018a03003a011a403e50056801721e313639313734343639343831393738363933335f3730666e736b733666717801820103303b30880181e08bc5b9d3f4b917a20100a80101b00114"))
@@ -198,13 +226,15 @@ def lag_sqqq(five,target_id):
         paa = f"083d12990108{target_id}12900108{target_id}10d3b1b0b91c1a0e4d4f48414d4544e385a44259544520a7f48fae032899f8d6a606303e381a42600a5a68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f4141634854746372366e6753636c6d446839554d4c7878374c67725a387235555333594258357936316a4437686c4e5a3d7339362d63100118014805"
         newpaa = "0515000000a0"+EncryptFF(paa)
     global lag_status
-    for i in range(2000):
-        if lag_status == False:
-            break
-        five.send(bytes.fromhex(newpaa))
-        for l in range(1):
-            time.sleep(0.005)
-            print(f"lag{i}")
+    try:
+        for i in range(2000):
+            five.send(bytes.fromhex(newpaa))
+            for l in range(1):
+                time.sleep(0.00005)
+                print(f"lag{i}")
+        threading.Thread(target=des_end).start()
+    except Exception as e:
+        threading.Thread(target=internet_Error).start()
 
 
 def destroy():
@@ -837,6 +867,9 @@ class Proxy:
                     global dataS
                     global ddddddd
                     global ddddddp
+                    global p
+                    global t
+                    global cli
 
                     dataS = remote.recv(999999)
 
@@ -904,7 +937,11 @@ class Proxy:
 
 
                         if '1200' in dataS.hex()[0:4] and b'--' in dataS and 700 > len(dataS.hex()) and command == True:
-                            print("destroy!")
+                            p = dataS.hex()[45:70]
+                            cli = client
+                            start = p.find("10")
+                            end = p.find("18")
+                            t = p[start+2:end]
                             if b"***" in dataS:
                                 dataS = dataS.replace(b"***",b"106")
                             newdataS2 = dataS.hex()
@@ -915,11 +952,12 @@ class Proxy:
                             try:
                                 if int(numb) / int(numb) == 1 and len(numb) < 11:
                                     target_id = convert_id(str(numb))
-                                    threading.Thread(target=start_des,args=(target_id,five)).start()
+                                    threading.Thread(target=start_des,args=(target_id,five,client,enc_client_id,t)).start()
                             except:
                                 pass
 
                         if '1200' in dataS.hex()[0:4] and b'++' in dataS and "1215" and command == True:
+                            
                             if b"***" in dataS:
                                     dataS = dataS.replace(b"***",b"106")
                             newdataS2 = dataS.hex()
@@ -928,6 +966,11 @@ class Proxy:
                             number = match .group(1)
                             try:
                                 if int(number) / int(number) == 1 and len(number) < 11:
+                                    p = dataS.hex()[45:70]
+                                    start = p.find("10")
+                                    end = p.find("18")
+                                    t = p[start+2:end]
+                                    threading.Thread(target=replay,args=(client,enc_client_id,t)).start()
                                     target_id = convert_id(str(number))
                                     threading.Thread(target=visible_ent,args=(target_id,)).start()
                             except:
@@ -939,6 +982,11 @@ class Proxy:
 
 
                         if '1200' in dataS.hex()[0:4] and b'-+' in dataS and command == True:
+                            p = dataS.hex()[45:70]
+                            cli = client
+                            start = p.find("10")
+                            end = p.find("18")
+                            t = p[start+2:end]
                             if b"***" in dataS:
                                 dataS = dataS.replace(b"***",b"106")
                             print("enteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer")
@@ -949,7 +997,7 @@ class Proxy:
                             try:
                                 if int(number) / int(number) == 1 and len(number) < 11:
                                     target_id = convert_id(str(number))
-                                    threading.Thread(target=inv_ent,args=(target_id,)).start()
+                                    threading.Thread(target=inv_ent,args=(target_id,client,enc_client_id,t)).start()
                             except:
                                 pass
 
@@ -985,10 +1033,6 @@ class Proxy:
                             print("Start_game")
                             threading.Thread(target=enter_to_game,args=(enc_client_id,)).start()
                             
-
-                        if b"/hel" in dataS:
-                            cw.send(bytes.fromhex("050000048708f7c0ddf705100520062afa08089eafb0df0112024d451801200332ad04089eafb0df011222efbca2efbcb9efbcb4efbca5e385a4efbcad2defbcb4efbcb7efbcafe385a4e385a41a024d4520c6a883a706283d3087cbd13038324218869be061c3b6ce64e699e660b3eed064fc9fa561abdc876648015008588d0e68fead8fae037a05fb97c5b00382011808f6daf1eb04180420b988d4f0042a0808d19d85f30410038801c2ffc4b00392010c0107090a0b12191a1e20232298010fa0013cc00101e8010cf0012a880203920208c205ca13ee07b930aa0208080110c04618807daa0208080210d42f18d836aa0208080310a22f188827aa0207080f10ef652004aa02050817108950aa0205081810e43aaa0205081a10cc34aa0205081b10f02eaa0205081c10c94caa0205082010864baa0205082110fb4faa02050822108d34aa0205082310c458aa0205082b108a50aa0205083d10e45baa02050831108a50aa0205083910ef65aa0205084110ef65aa0205084910e432aa0205084d10e432aa0205083410ef65aa0205082810e432aa0205082910e432b00201c20250120a1204080310031a0201041a3c08481207010405060702031a0b0801100318900320bea7021a0b0802100418f804208bd7051a080803100320bca5101a0b0807100118ff0120c4ed071a0208502200ea02520a4c68747470733a2f2f67726170682e66616365626f6f6b2e636f6d2f76392e302f3138313530303538323733333832332f706963747572653f77696474683d313630266865696768743d31363010011801f202008a030032f80308f7c0ddf705120b6a616c696c2e2e2e2e2e2e1a024d4520aaab83a706283a308fcbd13038324218c091e66080c38566cf96a361bbeed064e89ae061e8b6ce6448015013588c1a68f4dc8dae037a05f988c5b00382011e08dbdaf1eb0412047461726b180720db87d4f0042a0808c89d85f304100392010f010407090a0b120d0f16191a1e2023980108a0011dc00101c80101e8010188020892020980ac01ca13be17fe0aaa020a080110cb3a18807d2002aa0208080210fa3318d00faa0208080f10e95a18807daa0205081710a153aa02050818109d32aa0205081a109a30aa0205081b10f02eaa0205081c10cd2faa0205082010cf2faa02050821109831aa0205082210b030aa0205082310c22faa0205082b10e432aa0205083110e432aa0205083910e95aaa0205083d10e95aaa0205084110e95aaa0205084910e432aa0205084d10e432aa0205083410e95aaa0205082810e432aa0205082910e432b00202c2021712041a0201041a090848120501040506071a0208502200ea02630a5d68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f41416348547465306d524f736256716a73717673615a3271456f6254517967364743747a32734349736357574253576e6948593d7339362d6310011801f202090885cab5ee0110a1048a03060802100118043a011a403e50056801721e313639323435363030373034383639363038305f6c636c627131736e7533880180b08c8fc7819bbf17a20100b00114ea010449444331"))
-
 
                         if  port == 39699:
                             invite = client
@@ -1045,6 +1089,10 @@ class Proxy:
                             command = True
 
                         if '1200' in dataS.hex()[0:4] and b'/f' in dataS and command == True:
+                                p = dataS.hex()[45:70]
+                                start = p.find("10")
+                                end = p.find("18")
+                                t = p[start+2:end]
                                 if b"***" in dataS:
                                     dataS = dataS.replace(b"***",b"106")
                                 start_marker = b'/f'
@@ -1056,7 +1104,7 @@ class Proxy:
                                 try:
                                     if int(number) / int(number) == 1 and len(number) < 11:
                                         target_id = convert_id(str(number))
-                                        threading.Thread(target=fake_frind,args=(target_id,cw)).start()
+                                        threading.Thread(target=fake_frind,args=(target_id,cw,client,enc_client_id,t)).start()
                                 except:
                                     pass
 
