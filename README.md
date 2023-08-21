@@ -27,8 +27,8 @@ one = True
 
 SERVER_HOST = '140.150.224.42'
 SERVER_PORT = 10033
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((SERVER_HOST, SERVER_PORT))
+client_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_s.connect((SERVER_HOST, SERVER_PORT))
 global command
 command = False
 
@@ -147,18 +147,20 @@ def sendi():
             break
 
 def start_game():
-    global dataS
-    for i in range(200):
+    global dataS,five
+    for i in range(50):
         if "0f00" in dataS.hex():
             pattern = r'40(.{8,12})80'
             matches = re.findall(pattern, dataS.hex())
             print(matches)
             for match in matches:
-                    target_id5 = match[:-1]
-                    five.send(bytes.fromhex(("051500000010"+EncryptFF(f"0809120608{target_id5}"))))
+                target_id5 = match
+                print(target_id5)
+                five.send(bytes.fromhex(("051500000010"+startg(b'\x08\t\x12\x06\x08'+bytes.fromhex("f7c0ddf705")))))
+
             break
         print("No id")
-        time.sleep(0.1)
+        time.sleep(0.2)
 
 def runsnv():
     threading.Thread(target=sendi).start()
@@ -201,19 +203,25 @@ def enter_to():
 ##############################################
 
 def sayhello():
-    client.send("12345678".encode())
-    response = client.recv(999999)
+    client_s.send("12345678".encode())
+    response = client_s.recv(999999)
 
 def convert_id(p_id):
-    client.send(p_id.encode())
-    response = client.recv(999999)
+    client_s.send(p_id.encode())
+    response = client_s.recv(999999)
     return response.decode()
     
 
 def EncryptFF(packet):
-    client.send(bytes.fromhex(packet))
-    response = client.recv(999999)
+    client_s.send(bytes.fromhex(packet))
+    response = client_s.recv(999999)
     return response.hex()
+
+def startg(packet):
+    client_s.send(packet)
+    response = client_s.recv(999999)
+    return response.hex()
+
 
 ##############################################
 def lag_sqqq(five,target_id):
@@ -768,6 +776,9 @@ class Proxy:
                     hide =False
                     global recordmode
 
+                    if "0515" in dataC.hex()[0:4]:
+                        print(dataC.hex())
+
                     if '0515' in dataC.hex()[0:4] and len(dataC.hex()) >= 141:
                         hide = True
                     if '0515' in dataC.hex()[0:4] and 700 < len(dataC.hex()) < 1100:   #ENTER TO SQUAD
@@ -1032,7 +1043,10 @@ class Proxy:
                         if b"/sss" in dataS and "1215" in dataC.hex()[0:4] and command == True:
                             print("Start_game")
                             threading.Thread(target=enter_to_game,args=(enc_client_id,)).start()
-                            
+                        
+                        if b"/hhh" in dataS:
+                            # print(bytes.fromhex("0809120608f7c0ddf7054"))
+                            five.send(bytes.fromhex(("051500000010"+startg(b'\x08\t\x12\x06\x08'+bytes.fromhex("f7c0ddf705")))))
 
                         if  port == 39699:
                             invite = client
@@ -1108,7 +1122,8 @@ class Proxy:
                                 except:
                                     pass
 
-
+                        
+                        
                         if '1200' in dataS.hex()[0:4] and b'/+' in dataS  and idinfo == True and command == True:
                                 start_marker = b'/+'
                                 end_marker = b'('
