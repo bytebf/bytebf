@@ -26,7 +26,7 @@ one = True
 
 
 SERVER_HOST = '140.150.224.42'
-SERVER_PORT = 10033
+SERVER_PORT = 10034
 client_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_s.connect((SERVER_HOST, SERVER_PORT))
 global command
